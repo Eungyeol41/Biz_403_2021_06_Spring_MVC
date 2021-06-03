@@ -45,6 +45,7 @@ public class HomeController {
 	public HomeController(HomeService hService) {
 		this.hService = hService;
 	}
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		
