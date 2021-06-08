@@ -17,6 +17,10 @@ import java.util.List;
  * 이렇게 Generic을 갖는 Interface를 만들어두고 이 Generic Interface를 상속받아서 사용한다.
  * 
  * 상속받는 Interface는 상속되는 곳에 자신의 VO, primary key 칼럼의 PK type을 지정해두면 공통된 method를 다시 만들 필요가 없어진다.
+ * 
+ * List<String>
+ * List<BookVO>
+ * 
  */
 public interface GenericDao<VO, PK> {
 

@@ -10,5 +10,8 @@
 </head>
 <body>
 	<h1>반갑습니다</h1>
+	<p><a href="${rootPath}/comp/insert">출판사 추가</a>
+	<p><a href="${rootPath}/author/insert">저자 추가</a>
+	<p><a href="${rootPath}/books/insert">도서 추가</a>
 </body>
 </html>

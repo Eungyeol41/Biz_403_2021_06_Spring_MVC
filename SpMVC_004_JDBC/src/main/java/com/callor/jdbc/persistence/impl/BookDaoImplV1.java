@@ -4,12 +4,22 @@ import java.util.List;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.callor.jdbc.model.BookVO;
 import com.callor.jdbc.persistence.BookDao;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Repository("bookDaoV1") // xml에 등록할 id
 public class BookDaoImplV1 implements BookDao{
 	
+	// Console로 log를 찍기 위하여 log 객체 생성
+	// lombok @Slf4j를 사용하여 아래 코드를 대신한다
+	//		private static Logger log = LoggerFactory.getLogger("SERVICE");
+	
+	// jdbc-context.xml에 선언된 jdbcTemplate bean 사용하기
 	protected final JdbcTemplate JdbcTemplate;
 	public BookDaoImplV1(JdbcTemplate jdbcTemplate) {
 		this.JdbcTemplate = jdbcTemplate;
@@ -23,6 +33,8 @@ public class BookDaoImplV1 implements BookDao{
 		
 		// 데이터가 VO 형태로 되어 있으니 받아라 / BookVO에 잘 담아놓아라 / List 형태로 만들어서 나에게 줘라!
 		List<BookVO> books = JdbcTemplate.query(sql, new BeanPropertyRowMapper<BookVO>(BookVO.class));
+		
+		log.debug("SELECT {}", books.toString());
 		
 		return null;
 	}

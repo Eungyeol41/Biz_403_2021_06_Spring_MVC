@@ -8,6 +8,9 @@ import com.callor.jdbc.model.BookVO;
  * Dao ( Data Access Object )
  * 
  * Service -> Dao -> DBMS 과정에서 1개 table에서 실질적인 CRUD를 담당할 interface, class
+ * 
+ * Servlet project에서 Service가 실행했던 역할을 Dao가 실행하게 된다.
+ * 
  */
 public interface BookDao extends GenericDao<BookVO, String>{
 
