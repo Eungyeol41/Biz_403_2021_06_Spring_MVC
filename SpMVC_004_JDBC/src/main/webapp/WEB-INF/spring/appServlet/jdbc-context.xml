@@ -10,7 +10,7 @@
 	<!-- proterties 파일의 내용을 읽어서 변수로 사용하기 위한 bean 설정 -->
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="fileEncoding" value="UTF-8" />
-		<property name="location">
+		<property name="locations">
 			<list>
 				<value>/WEB-INF/spring/config/mysql.properties</value>
 				<value>/WEB-INF/spring/config/string.properties</value>
