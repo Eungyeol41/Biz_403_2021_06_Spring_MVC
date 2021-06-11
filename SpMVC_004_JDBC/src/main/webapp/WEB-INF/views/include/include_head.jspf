@@ -5,7 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>도서정보 2021</title>
-<link href="${rootPath}/static/css/main_layout.css" rel="stylesheet">
+<title>2021</title>
 <link href="${rootPath}/static/css/main_home.css" rel="stylesheet">
+<link href="${rootPath}/static/css/main_layout.css" rel="stylesheet">
+<link href="${rootPath}/static/css/main_form.css" rel="stylesheet">
 </head>

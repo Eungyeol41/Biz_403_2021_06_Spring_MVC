@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+form {
+	width: 80%;
+	margin: 15px auto;
+}
+
+fieldset {
+	border: 1px solid green;
+	border-radius: 15px;
+	margin: 15px;
+}
+
+legend {
+	text-align: center;
+	padding: 10px 20px;
+	background-color: lightblue;
+}
+
+form div {
+	width: 80%;
+	margin: 5px auto;
+}
+
+form label {
+	display: inline-block;
+	width: 20%;
+	text-align: right;
+	margin: 8px 5px;
+	padding: 8px;
+	font-weight: bold;
+}
+
+form input {
+	width: 50%;
+	margin: 4px 5px;
+	padding: 8px;
+	border-radius: 15px;
+	outline: 0;
+	border-color: lightblue;
+}
+
+form input:focus {
+	border-color: aquamarine;
+}
+
+form input:hover {
+	background-color: gainsboro;
+}

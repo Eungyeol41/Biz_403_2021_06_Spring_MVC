@@ -45,6 +45,10 @@
 		margin-left: 30px;	
 	}
 	
+	nav#main_nav li:nth-of-type(5) {
+		margin-left: auto;
+	}
+	
 	nav#main_nav li:hover {
 		background-color: gold;
 		cursor: pointer;
@@ -78,6 +82,23 @@
 	// jsp의 el tag의 변수를 js 변수로 다시 선언하기 
 	// var의 전역변수, 위치에 관계없이 어디서나 읽을 수 있는 변수
 	var rootPath = "${rootPath}";
+	
+	function startTime() {
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        m = checkTime(m);
+        s = checkTime(s);
+        document.getElementById("clock").innerHTML = h + ":" + m + ":" + s;
+        var t = setTimeout(startTime, 500);
+      }
+      function checkTime(i) {
+        if (i < 10) {
+          i = "0" + i;
+        } // 숫자가 10보다 작을 경우 앞에 0을 붙여줌
+        return i;
+      }
 </script>
 <script src="${rootPath}/static/js/main_nav.js"></script>
 
@@ -85,7 +106,7 @@
 	<h1>도서정보관리 2021</h1>
 	<p>빛고을 총판 도서관리 시스템 2021 V1</p>
 </header>
-
+<body onload="startTime()">
 <nav id="main_nav">
 	<ul>
 		<li>HOME</li>
@@ -94,5 +115,7 @@
 		<li>저자정보</li>
 		<li>로그인</li>
 		<li>회원가입</li>
+		<li style="float:right;"><h2 id="clock"></h2></li>
 	</ul>
 </nav>
+</body>

@@ -24,6 +24,11 @@ public class CompController {
 		this.compService = compService;
 	}
 	
+	@RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
+	public String comp() {
+		return "comp/list";
+	}
+	
 	// localhost:8080/jdbc/comp/insert로 호출되는 함수
 	@RequestMapping(value ="/insert", method = RequestMethod.GET)
 	public String insert() {
@@ -33,29 +38,29 @@ public class CompController {
 		
 	}
 	
-	@RequestMapping(value="/insert",method=RequestMethod.POST)
-	public String insert(CompVO cmVO) {
-		
-		log.debug("Company VO {}", cmVO.toString());
-		compService.insert(cmVO);
-		
-		return "redirect:/";
-		
-	}
-	
-	@RequestMapping(value ="/update", method = RequestMethod.GET)
-	public String update() {
-		
-		return "comp/input";
-		
-	}
-	
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	// Web에서 cpcode로 데이터 전송되어서 오면 delete method에서는 code로 받아라
-	public String delete(@RequestParam("cpcode") String code) {
-		
-		compDao.delete(code);
-		
-		return "redirect:/";
-	}
+//	@RequestMapping(value="/insert",method=RequestMethod.POST)
+//	public String insert(CompVO cmVO) {
+//		
+//		log.debug("Company VO {}", cmVO.toString());
+//		compService.insert(cmVO);
+//		
+//		return "redirect:/";
+//		
+//	}
+//	
+//	@RequestMapping(value ="/update", method = RequestMethod.GET)
+//	public String update() {
+//		
+//		return "comp/input";
+//		
+//	}
+//	
+//	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+//	// Web에서 cpcode로 데이터 전송되어서 오면 delete method에서는 code로 받아라
+//	public String delete(@RequestParam("cpcode") String code) {
+//		
+//		compDao.delete(code);
+//		
+//		return "redirect:/";
+//	}
 }

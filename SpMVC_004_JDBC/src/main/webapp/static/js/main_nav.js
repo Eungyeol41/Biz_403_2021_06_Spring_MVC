@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } else if (menuText === "도서정보") {
                 urlPath += "/books";
             } else if (menuText === "출판사정보") {
-                urlPath += "/company";
+                urlPath += "/comp";
             } else if (menuText === "저자정보") {
                 urlPath += "/author";
             } else if (menuText === "로그인") {
