@@ -23,6 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 urlPath += "/member/login";
             } else if (menuText === "회원가입") {
                 urlPath += "/member/join";
+            } else if (menuText === "로그아웃") {
+                urlPath += "/member/logout";
+            } else if (e.target.id === "mypage") {
+                urlPath += "/member/mypage";
             }
 
             // alert(`내가 가야할 곳 ${urlPath}`);

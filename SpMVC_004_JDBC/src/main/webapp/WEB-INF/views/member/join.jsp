@@ -65,7 +65,7 @@
 </style>
 <body>
 	<%@ include file="/WEB-INF/views/include/include_header.jspf" %>
-	
+	<section class="main_sec">
 		<form id="login_form" method="POST">
 			<h2>회원가입</h2>
 			<input name="m_username" placeholder="사용자 ID">
@@ -73,7 +73,7 @@
 			<input type="password" name="m_re.password" placeholder="P.W. 확인">
 			<button>가입</button>
 		</form>
-	
+	</section>
 	<%@ include file="/WEB-INF/views/include/include_footer.jspf" %>
 </body>
 <script>

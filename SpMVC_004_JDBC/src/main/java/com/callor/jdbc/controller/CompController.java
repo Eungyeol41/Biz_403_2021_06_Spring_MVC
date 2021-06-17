@@ -38,15 +38,15 @@ public class CompController {
 		
 	}
 	
-//	@RequestMapping(value="/insert",method=RequestMethod.POST)
-//	public String insert(CompVO cmVO) {
-//		
-//		log.debug("Company VO {}", cmVO.toString());
-//		compService.insert(cmVO);
-//		
-//		return "redirect:/";
-//		
-//	}
+	@RequestMapping(value="/insert",method=RequestMethod.POST)
+	public String insert(CompVO cmVO) {
+		
+		log.debug("Company VO {}", cmVO.toString());
+		compService.insert(cmVO);
+		
+		return "redirect:/insert";
+		
+	}
 //	
 //	@RequestMapping(value ="/update", method = RequestMethod.GET)
 //	public String update() {
