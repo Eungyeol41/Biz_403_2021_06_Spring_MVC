@@ -6,75 +6,97 @@
 <html>
 <%@ include file="/WEB-INF/views/include/include_head.jspf"%>
 <style>
-form#login_form {
-	width: 400px;
-	padding: 40px;
-	margin: 70px auto;
-	background-color: lightsteelblue;
-	text-align: center;
-	border-radius: 13px;
-}
-
-form#login_form h2 {
-	color: white;
-	font-weight: 500;
-}
-
-form#login_form input {
-	border: 0;
-	outline: 0;
-	display: block;
-	width: 200px;
-	margin: 20px auto;
-	padding: 14px 10px;
-	color: white;
-	border-radius: 15px;
-	border: 1px solid #3498db;
-	text-align: center;
-	transition: 0.3s;
-}
-
-form#login_form input:focus {
-	width: 280px;
-	border-color: lightcyan;
-}
-
-form#login_form button {
-	border: 0;
-	outline: none;
-	background: none;
-	display: block;
-	margin: 20px auto;
-	text-align: center;
-	border: 1px solid lightcyan;
-	color: white;
-	border-radius: 15px;
-	cursor: pointer;
-}
-
-form#login_form button.btn_join {
-	background-color: lightsteelblue;
-}
-
-form#login_form button:hover {
-	background-color: lightsteelblue;
-}
-
-form#login_form div.msg {
-	margin: 0 auto;
-	background-color: red;
-	color: yellow;
-	font-size: 10px;
-	border-radius: 15px;
-}
+	form#login_form {
+		width: 400px;
+		padding: 40px;
+		margin: 70px auto;
+		background-color: lightsteelblue;
+		text-align: center;
+		border-radius: 13px;
+		z-index: 500;
+		animation-name: aniTopDown;
+		animation-duration: 0.8s;
+	}
+	
+	form#login_form h2 {
+		color: white;
+		font-weight: 500;
+	}
+	
+	form#login_form input {
+		border: 0;
+		outline: 0;
+		display: block;
+		width: 200px;
+		margin: 20px auto;
+		padding: 14px 10px;
+		color: white;
+		border-radius: 15px;
+		border: 1px solid #3498db;
+		background: none; text-align : center;
+		transition: 0.3s;
+		text-align: center;
+	}
+	
+	form#login_form input:focus {
+		width: 280px;
+		border-color: lightcyan;
+	}
+	
+	form#login_form button {
+		outline: none;
+		background: none;
+		display: block;
+		width: 200px;
+		margin: 20px auto;
+		padding: 14px 10px; text-align : center;
+		border: 1px solid lightcyan; color : white;
+		border-radius: 15px;
+		cursor: pointer;
+		color: white;
+		text-align: center;
+	}
+	
+	form#login_form button.btn_join {
+		background-color: lightsteelblue;
+	}
+	
+	form#login_form button:hover {
+		background-color: lightsteelblue;
+	}
+	
+	form#login_form div.msg {
+		margin: 0 auto;
+		background-color: red;
+		color: yellow;
+		font-size: 10px;
+		border-radius: 15px;
+	}
+	
+	@keyframes aniTopDown {
+		from {
+			top:-300px;
+			opacity: 0;
+		}
+	
+		to {
+			top: 50%;
+			transform: translateY(-50%);
+			opacity: 1;
+		}
+	}
+	
+	div#modal {
+		display: block;
+	}
 </style>
 <body>
 	<%@ include file="/WEB-INF/views/include/include_header.jspf"%>
 	<form id="login_form" method="POST">
 		<h2>로그인</h2>
 		<div class="msg">${MSG}</div>
-		<input name="m_username" id="m_username" placeholder="사용자 ID" /> 
-		<input type="password" id="m_password" name="m_password" placeholder="P.W." />
+		<input name="m_username" id="m_username" placeholder="사용자 ID" /> <input
+			type="password" id="m_password" name="m_password" placeholder="P.W." />
 		<button type="button" class="btn_login">로그인</button>
 		<button type="button" class="btn_join">회원가입</button>
 	</form>

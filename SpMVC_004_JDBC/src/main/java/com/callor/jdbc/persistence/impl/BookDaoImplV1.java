@@ -36,7 +36,7 @@ public class BookDaoImplV1 implements BookDao{
 		
 		log.debug("SELECT {}", books.toString());
 		
-		return null;
+		return books;
 	}
 
 	@Override

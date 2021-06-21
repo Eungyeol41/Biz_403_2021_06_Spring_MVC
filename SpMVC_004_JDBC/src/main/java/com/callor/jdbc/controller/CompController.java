@@ -1,10 +1,13 @@
 package com.callor.jdbc.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.callor.jdbc.model.CompVO;
 import com.callor.jdbc.persistence.CompDao;
@@ -25,7 +28,22 @@ public class CompController {
 	}
 	
 	@RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
-	public String comp() {
+	public String comp(HttpSession hSession, Model model) {
+		
+		List<CompVO> compList = compService.selectAll();
+		log.debug("출판사 정보 가져오기: {} ", compList.toString());
+		model.addAttribute("COMPS",compList); // 맞는 지 확인
+		
+//		if(hSession.getAttribute(null))
+		return "comp/list";
+	}
+	
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public String getList(Model model) {
+		
+		List<CompVO> compList = compService.selectAll();
+		model.addAttribute("COMPS", compList);
+		
 		return "comp/list";
 	}
 	

@@ -22,6 +22,16 @@ button.btn_insert {
 				<th>주소</th>
 				<th>주요장르</th>
 			</tr>
+			
+			<c:choose>
+				<c:when test="${empty AUTH-LIST}">
+
+				</c:when>
+				<c:otherwise>
+
+				</c:otherwise>
+			</c:choose>
+			
 			<tr>
 				<td>CODE</td>
 				<td>저자명</td>

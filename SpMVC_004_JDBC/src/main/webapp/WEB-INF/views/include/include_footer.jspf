@@ -17,3 +17,7 @@
 <footer>
 	<address>CopyRight &copy; iniziato@naver.com</address>
 </footer>
+
+<div id="modal">
+	<span>X</span>
+</div>

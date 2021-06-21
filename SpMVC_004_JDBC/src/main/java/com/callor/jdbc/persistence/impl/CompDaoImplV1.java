@@ -50,20 +50,18 @@ public class CompDaoImplV1 implements CompDao{
 	}
 
 	@Override
-	public CompVO findById(String pk) {
+	public CompVO findById(String cp_code) {
 		// TODO Auto-generated method stub
 		
-		String sql = "";
-		Object[] params = new Object[] { pk };
+		String sql = " SELECT * FROM tbl_company WHERE cp_code = ? ";
+		Object[] params = new Object[] { cp_code };
 		
 		CompVO vo = (CompVO) jdbcTemplate.query(sql, params, new BeanPropertyRowMapper<CompVO>(CompVO.class));
 		
 		return vo;
 	}
 
-	/*
-	 * tbl_company table에서 cpcode(출판사코드) 중 가장 큰 값을 추출하기
-	 */
+	// tbl_company table에서 cpcode(출판사코드) 중 가장 큰 값을 추출하기
 	@Override
 	public String findByMaxCode() {
 		// TODO tbl_company table에서 cpcode(출판사코드) 중 가장 큰 값을 추출하기
@@ -130,10 +128,19 @@ public class CompDaoImplV1 implements CompDao{
 		return 0;
 	}
 
+	// 출판사 이름으로 검색하기
 	@Override
 	public List<CompVO> findByCName(String cname) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		String sql = " SELECT * FROM tbl_company ";
+		//		WHERE cp_code LIKE '%' || '%' ---> Oracle
+		sql += " WHERE cp_name LIKE CONCAT( '%', ? '%' ) "; // MYSQL
+		
+		// SELECT를 수행한 후 각각의 데이터를 CompVO에 담고 list에 add하여 return한 후 compList에 받기
+		List<CompVO> compList = jdbcTemplate.query(sql, new Object[] { cname }, new BeanPropertyRowMapper<CompVO>(CompVO.class));
+		
+		return compList;
 	}
 
 	@Override
