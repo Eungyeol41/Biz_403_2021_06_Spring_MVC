@@ -15,7 +15,9 @@
 					<c:when test="${not empty COMPS}">
 						<c:forEach var="index" begin="0" end="4">
 							<li>${COMPS[index].cp_title},&nbsp;&nbsp;
-								${COMPS[index].cp_ceo},&nbsp;&nbsp; ${COMPS[index].cp_tel}</li>
+								${COMPS[index].cp_ceo},&nbsp;&nbsp; 
+								${COMPS[index].cp_tel}
+							</li>
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
@@ -35,7 +37,9 @@
 					<c:when test="${not empty BOOKS}">
 						<c:forEach var="index" begin="0" end="4">
 							<li>${BOOKS[index].bk_title},&nbsp;&nbsp;
-								${BOOKS[index].bk_ccode},&nbsp;&nbsp; ${BOOKS[index].cp_acode}</li>
+								${BOOKS[index].bk_ccode},&nbsp;&nbsp; 
+								${BOOKS[index].cp_acode}
+							</li>
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
@@ -49,10 +53,10 @@
 			<h3>저자정보</h3>
 			<ul>
 				<c:choose>
-					<c:when test="${not empty AUTHOS}">
+					<c:when test="${not empty AUTHORS}">
 						<c:forEach var="index" begin="0" end="4">
-							<li>${AUTHOS[index].au_name},&nbsp;&nbsp;
-								${AUTHOS[index].au_tel},&nbsp;&nbsp; 
+							<li>${AUTHORS[index].au_name},&nbsp;&nbsp;
+								${AUTHORS[index].au_tel},&nbsp;&nbsp; 
 								${BOOKS[index].au_genre}</li>
 						</c:forEach>
 					</c:when>

@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.callor.jdbc.model.AuthorVO;
 import com.callor.jdbc.persistence.AuthorDao;
 
+@Repository("authorDaoV1")
 public class AuthorDaoImplV1 implements AuthorDao{
 
 	/*
@@ -39,7 +41,7 @@ public class AuthorDaoImplV1 implements AuthorDao{
 		// TODO Auto-generated method stub
 		
 		String sql = " SELECT * FROM tbl_author ";
-		sql += " WHERE cp_code = ?";
+		sql += " WHERE au_code = ?";
 
 		AuthorVO author 
 		= (AuthorVO) jdbcTemplate.query(sql, new Object[] {au_code},
@@ -70,7 +72,7 @@ public class AuthorDaoImplV1 implements AuthorDao{
 		// TODO Auto-generated method stub
 		
 		String sql = " SELECT * FROM tbl_author ";
-		sql += " WHERE cp_title LIKE CONCAT('%', ? , '%') ";
+		sql += " WHERE au_name LIKE CONCAT('%', ? , '%') ";
 
 		List<AuthorVO> authorList 
 		=  jdbcTemplate.query(sql, new Object[] {aname},
@@ -84,7 +86,7 @@ public class AuthorDaoImplV1 implements AuthorDao{
 		// TODO Auto-generated method stub
 		
 		String sql = " SELECT * FROM tbl_author ";
-		sql += " WHERE cp_tel =  ? ";
+		sql += " WHERE au_tel =  ? ";
 
 		/*
 		 * 전화번호로 조회를 하면 1개의 데이터만 추출될 것이다

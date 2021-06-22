@@ -14,8 +14,13 @@
 		text-align: center;
 		border-radius: 13px;
 		z-index: 500;
+		position: absolute; top : 50%; left : 50%; transform : translate( -50%,
+		-50%);
 		animation-name: aniTopDown;
 		animation-duration: 0.8s;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
 	}
 	
 	form#login_form h2 {
@@ -33,7 +38,8 @@
 		color: white;
 		border-radius: 15px;
 		border: 1px solid #3498db;
-		background: none; text-align : center;
+		background: none;
+		text-align: center;
 		transition: 0.3s;
 		text-align: center;
 	}
@@ -49,8 +55,10 @@
 		display: block;
 		width: 200px;
 		margin: 20px auto;
-		padding: 14px 10px; text-align : center;
-		border: 1px solid lightcyan; color : white;
+		padding: 14px 10px;
+		text-align: center;
+		border: 1px solid lightcyan;
+		color: white;
 		border-radius: 15px;
 		cursor: pointer;
 		color: white;
@@ -78,14 +86,12 @@
 			top:-300px;
 			opacity: 0;
 		}
-	
+		
 		to {
 			top: 50%;
-			transform: translateY(-50%);
 			opacity: 1;
 		}
 	}
-	
 	div#modal {
 		display: block;
 	}

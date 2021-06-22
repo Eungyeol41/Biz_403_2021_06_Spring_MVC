@@ -12,8 +12,7 @@ button.btn_insert {
 }
 </style>
 <body>
-	<%@ include file="/WEB-INF/views/include/include_header.jspf"%>
-	<section class="main_sec">
+	<section class="search_sec">
 		<table>
 			<tr>
 				<th>CODE</th>
@@ -28,7 +27,16 @@ button.btn_insert {
 
 				</c:when>
 				<c:otherwise>
-
+					<c:forEach items="${AUTH_LIST}" var="AUTH">
+						<tr data-acode="${AUTH.au_code}">
+							<td>${AUTH.au_code}</td>
+							<td>${AUTH.cp_title}</td>
+							<td>${AUTH.cp_ceo}</td>
+							<td>${AUTH.cp_tel}</td>
+							<td>${AUTH.cp_addr}</td>
+							<td>${AUTH.cp_genre}</td>
+						</tr>
+					</c:forEach>
 				</c:otherwise>
 			</c:choose>
 			
@@ -40,11 +48,7 @@ button.btn_insert {
 				<td>주요장르</td>
 			</tr>
 		</table>
-		<div class="btn_box">
-			<button class="btn_insert author">저자 정보 등록</button>
-		</div>
 	</section>
-	<%@ include file="/WEB-INF/views/include/include_footer.jspf"%>
 </body>
 <script>
 	document.querySelector("button.btn_insert author").addEventListener("click", ()=> {

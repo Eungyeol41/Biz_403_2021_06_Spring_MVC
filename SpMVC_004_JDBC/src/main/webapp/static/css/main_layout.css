@@ -48,9 +48,8 @@ table th, td {
 table td {
 	margin-left: 30px;
 	text-align: left;
-	padding-left:10px;
-	
-	max-width:0;
+	padding-left: 10px;
+	max-width: 0;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -106,29 +105,54 @@ button.btn_insert {
 
 div#modal {
 	position: fixed;
-	top:0;
-	left:0;
-	bottom:0;
-	right:0;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
 	background-color: black;
 	opacity: 0.5;
 	z-index: 100;
 	display: none;
 }
+
 div#modal span {
 	position: absolute;
 	display: inline-block;
-	top:30px;
+	top: 30px;
 	right: 30px;
 	font-size: 30px;
-	color:white;
+	color: white;
 	font-weight: 900;
 	border-radius: 50%;
-	padding:10px 20px;
-	transition:0.6s
+	padding: 10px 20px;
+	transition: 0.6s
 }
 
 div#modal span:hover {
 	background-color: white;
 	cursor: pointer;
+}
+
+section.search_sec {
+	/*
+		바깥쪽 box의 position이 fixed로 되어있기 때문에 내부의 box를 바깥 box의 중앙에 배치하기 위하여
+			position을 absolute로 설정하고 위치를 지정하였다.
+	*/
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	/* 자기 몸체크기의 x,y 방향으로 50%만큼 후진 */
+	transform: translate(-50%, -50%);
+	background-color: white;
+	opacity: 1;
+	width: 80%;
+	height: 80%;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	overflow: auto;
+}
+
+section.search_sec table {
+	width: 90%;
 }

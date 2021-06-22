@@ -52,7 +52,7 @@ public class HomeServiceImplV1 implements HomeService{
 		 * 
 		 */
 		model.addAttribute("BOOKS",bookList);
-		model.addAttribute("AUTHOS",authorList);
+		model.addAttribute("AUTHORS",authorList);
 		log.debug("SERVICE COMP {}",compList);
 		model.addAttribute("COMPS",compList);
 		

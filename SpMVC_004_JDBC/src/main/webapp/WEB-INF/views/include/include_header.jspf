@@ -79,7 +79,7 @@ section#ad_sec article:nth-of-type(n) {
 }
 </style>
 <script>
-var rootPath = "${rootPath}"
+	var rootPath = "${rootPath}"
 </script>
 <script src="${rootPath}/static/js/main_nav.js?version=2021-06-17-001"></script>
 
@@ -87,27 +87,25 @@ var rootPath = "${rootPath}"
 	<h1>도서정보관리 2021</h1>
 	<p>빛고을 총판 도서관리 시스템 2021 V1</p>
 </header>
-<body onload="startTime()">
-	<nav id="main_nav">
-		<ul>
-			<li>HOME</li>
-			<li>도서정보</li>
-			<li>출판사정보</li>
-			<li>저자정보</li>
-	
-			<%-- 
+<nav id="main_nav">
+	<ul>
+		<li>HOME</li>
+		<li>도서정보</li>
+		<li>출판사정보</li>
+		<li>저자정보</li>
+
+		<%-- 
 				USERVO 속성에는 로그인(정상 인증된)한 사용자의 정보가 담겨있게 된다.
 				이 정보는 현재 서비스를 계속 사용하는 동안에는 언제든지 어떤 JSP에서든지 값을 사용(조회, 읽기)할 수 있다.
 			 --%>
-			<c:if test="${empty USERVO}">
-				<li>로그인</li>
-				<li>회원가입</li>
-			</c:if>
-			
-			<c:if test="${not empty USERVO}">
-				<li>로그아웃</li>
-				<li id="mypage">${USERVO.name} 님, 반갑습니다.</li>
-			</c:if>
-		</ul>
-	</nav>
-</body>
+		<c:if test="${empty USERVO}">
+			<li>로그인</li>
+			<li>회원가입</li>
+		</c:if>
+
+		<c:if test="${not empty USERVO}">
+			<li>로그아웃</li>
+			<li id="mypage">${USERVO.name}님,반갑습니다.</li>
+		</c:if>
+	</ul>
+</nav>

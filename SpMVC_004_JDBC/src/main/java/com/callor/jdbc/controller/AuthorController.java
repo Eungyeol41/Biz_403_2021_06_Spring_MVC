@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.callor.jdbc.model.AuthorVO;
 import com.callor.jdbc.model.UserVO;
+import com.callor.jdbc.persistence.AuthorDao;
 import com.callor.jdbc.service.AuthorService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -49,9 +50,18 @@ public class AuthorController {
 		 * 작성할 때는 비록 문자열이지만, 변수명명 규칙에 맞도록 이름을 작성해야 한다
 		 * 그렇지 않으면 jsp에서 오류를 만나게 될 것이다
 		 */
-		model.addAttribute("AUTH-LIST",auList);
+		model.addAttribute("AUTH_LIST",auList);
 		
 		return "author/list";
+	}
+	
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public String search(Model model) {
+		
+		List<AuthorVO> authorList = auService.selectAll();
+		model.addAttribute("AUTH_LIST", authorList);
+		
+		return "author/search";
 	}
 	
 	// localhosg:8080/jdbc/comp/insert
