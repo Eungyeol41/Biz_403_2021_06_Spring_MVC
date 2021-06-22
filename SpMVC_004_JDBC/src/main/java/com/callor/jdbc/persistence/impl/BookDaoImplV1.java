@@ -29,7 +29,21 @@ public class BookDaoImplV1 implements BookDao{
 	public List<BookVO> selectAll() {
 		// TODO Auto-generated method stub
 		
-		String sql = " SELECT * FROM tbl_books ";
+		String sql = " SELECT ";
+		
+		sql += " bk_isbn, ";
+		sql += " bk_title, ";
+		sql += " C.cp_title AS bk_ccode, ";
+		sql += " A.au_name AS bk_acode, ";
+		sql += " bk_date, ";
+		sql += " bk_price, ";
+		sql += " bk_pages ";
+		
+		sql += " FROM tbl_books B ";
+		sql += " LEFT JOIN tbl_author A ";
+		sql += " ON B.bk_acode = A.au_code ";
+		sql += " LEFT JOIN tbl_company C ";
+		sql += " ON B.bk_ccode = C.cp_code ";
 		
 		// 데이터가 VO 형태로 되어 있으니 받아라 / BookVO에 잘 담아놓아라 / List 형태로 만들어서 나에게 줘라!
 		List<BookVO> books = JdbcTemplate.query(sql, new BeanPropertyRowMapper<BookVO>(BookVO.class));
@@ -72,7 +86,25 @@ public class BookDaoImplV1 implements BookDao{
 	@Override
 	public int insert(BookVO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		
+		String sql = " INSERT INTO tbl_books ( ";
+		sql += " bk_isbn, bk_title, bk_ccode, bk_acode, bk_date, bk_price, bk_pages ) ";
+		sql += " VALUES (?, ?, ?, ?, ?, ?, ? ) ";
+		
+		Object[] params = new Object[] {
+				
+				vo.getBk_isbn(),
+				vo.getBk_title(),
+				vo.getBk_ccode(),
+				vo.getBk_acode(),
+				vo.getBk_date(),
+				vo.getBk_price(),
+				vo.getBk_pages()
+		};
+		
+		// insert, update, delete는 update method 사용
+		return JdbcTemplate.update(sql, params);
+		
 	}
 
 	@Override

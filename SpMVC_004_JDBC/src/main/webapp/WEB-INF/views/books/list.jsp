@@ -16,15 +16,7 @@ button.btn_book_insert {
 	<section class="main_sec">
 		<table>
 			<tr>
-				<th>ISBN</th>
-				<th>도서명</th>
-				<th>출판사</th>
-				<th>저자</th>
-				<th>출판연도</th>
-				<th>가격</th>
-				<th>페이지 수</th>
-			</tr>
-			<tr>
+				<td>No.</td>
 				<td>ISBN</td>
 				<td>도서명</td>
 				<td>출판사</td>
@@ -33,6 +25,28 @@ button.btn_book_insert {
 				<td>가격</td>
 				<td>페이지 수</td>
 			</tr>
+			<c:choose>
+				<c:when test="${empty BOOKS}">
+					<tr>
+						<td colspan="8">데이터가 없음</td>
+					</tr>
+				</c:when>
+				<c:otherwise>
+					<c:forEach items="${BOOKS}" var="BOOK" varStatus="ST">
+						<tr>
+							<td>${ST.index}</td>
+							<td>${BOOKS.bk_isbn }</td>
+							<td>${BOOKS.bk_title}</td>
+							<td>${BOOKS.bk_ccode}</td>
+							<td>${BOOKS.bk_acode}</td>
+							<td>${BOOKS.bk_date}</td>
+							<td>${BOOKS.bk_price}</td>
+							<td>${BOOKS.bk_pages}</td>
+						</tr>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
+			
 		</table>
 		<div class="btn_box">
 			<button class="btn_book_insert">도서 등록</button>

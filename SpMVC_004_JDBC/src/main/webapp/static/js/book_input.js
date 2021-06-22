@@ -17,9 +17,9 @@ document.querySelector("DOMContentLoaded", () => {
             let urlPath = rootPath;
 
             if (id === "bk_ccode") {
-                urlPath += "/comp/search"
+                urlPath += `/comp/search?cp_title=${text}`;
             } else if (id === "bk_acode") {
-                urlPath += "/author/search"
+                urlPath += `author/search?au_name=${text}`;
             }
             if (className === "search") {
                 modal.style.display = "block";
@@ -40,4 +40,60 @@ document.querySelector("DOMContentLoaded", () => {
 
         }
     })
+
+    document.querySelector("form#book_input button.btn_save").addEventListener("click", (e) => {
+
+        alert("등록 버튼");
+
+        let form = document.querySelector("form#book_input")
+        let bk_isbn = form.querySelector("input#bk_isbn");
+        let bk_name = form.querySelector("input#bk_name");
+        let bk_ccode = form.querySelector("input#bk_ccode");
+        let bk_acode = form.querySelector("input#bk_acode");
+        let bk_price = form.querySelector("input#bk_price");
+        let bk_pages = form.querySelector("input#bk_pages");
+
+        // front 단에서 유효성 검사
+        if (bk_isbn.value === "") {
+            alert("ISBN 입력!");
+            bk_isbn.focus();
+            return false;
+        }
+        if (bk_isbn.value.length() != 13) {
+            alert("ISBN은 13자리입니다!");
+            bk_isbn.focus();
+            return false;
+        } else {
+            bk_name.focus();
+        }
+
+        if (bk_name.value === "") {
+            alert("이름은 반드시 입력하세요")
+            bk_name.focus();
+            return false;
+        }
+        if (bk_ccode.value === "") {
+            alert("이름은 반드시 입력하세요")
+            bk_ccode.focus();
+            return false;
+        }
+        if (bk_acode.value === "") {
+            alert("이름은 반드시 입력하세요")
+            bk_acode.focus();
+            return false;
+        }
+        if (bk_price.value === "") {
+            alert("이름은 반드시 입력하세요")
+            bk_price.focus();
+            return false;
+        }
+        if (bk_pages.value === "") {
+            alert("이름은 반드시 입력하세요")
+            bk_pages.focus();
+            return false;
+        }
+
+        form.submit();
+    })
+
 })

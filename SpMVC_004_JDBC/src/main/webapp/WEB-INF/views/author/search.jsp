@@ -28,7 +28,7 @@ button.btn_insert {
 				</c:when>
 				<c:otherwise>
 					<c:forEach items="${AUTH_LIST}" var="AUTH">
-						<tr data-acode="${AUTH.au_code}">
+						<tr data-acode="${AUTH.au_code}" class="search_author">
 							<td>${AUTH.au_code}</td>
 							<td>${AUTH.cp_title}</td>
 							<td>${AUTH.cp_ceo}</td>
@@ -39,14 +39,6 @@ button.btn_insert {
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
-			
-			<tr>
-				<td>CODE</td>
-				<td>저자명</td>
-				<td>전화번호</td>
-				<td>주소</td>
-				<td>주요장르</td>
-			</tr>
 		</table>
 	</section>
 </body>

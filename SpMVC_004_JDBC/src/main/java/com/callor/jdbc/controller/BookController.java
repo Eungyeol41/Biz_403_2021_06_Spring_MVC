@@ -1,13 +1,19 @@
 package com.callor.jdbc.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.callor.jdbc.model.BookVO;
 import com.callor.jdbc.model.UserVO;
+import com.callor.jdbc.service.BookService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,6 +21,9 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping(value = "/books")
 @Controller
 public class BookController {
+
+	@Autowired
+	protected BookService bkService;
 	
 	/* 
 	 * @RequestMapping(value = {"/",""})
@@ -37,6 +46,9 @@ public class BookController {
 //			return "redirect:/member/login";
 //		}
 		
+		List<BookVO> bookList = bkService.selectAll();
+		model.addAttribute("BOOKS", bookList);
+		
 		log.debug("Books Root");
 		
 		// /WEB-INF/views/books/list.jsp로 가라
@@ -47,4 +59,23 @@ public class BookController {
 	public String insert() {
 		return "books/input";
 	}
+	
+	@RequestMapping(value = "/insert", method = RequestMethod.POST)
+	public String insert(@ModelAttribute BookVO bookVO) {
+		
+		/*
+		 * form에서 건너온 데이터들을 bookVO에 담는 동안에 bookVO의 변수들(속성, property) 중에 숫자형 변수가 있을 경우
+		 * 건너온 데이터는 무조건 문자열형이므로 숫자형으로 형 변환을 시도한다
+		 * 그런데 입력박스에 아무런 감ㅅ이 담겨있지 않은 경우는 다음과 같은 코드가 내부적으로 실행되면서
+		 * 		bookVO.setBk_pages( Integer.valueOf("") );
+		 * 		-> NumberFormatException
+		 * 즉시 client에서 400 오류를 전달하고 종료해버린다
+		 * Controller의 사용자
+		 */
+		
+		Integer ret = bkService.insert(bookVO);
+		
+		return "redirect:/books";
+	}
+	
 }

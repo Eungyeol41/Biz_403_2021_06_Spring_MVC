@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.callor.jdbc.model.CompVO;
 import com.callor.jdbc.persistence.CompDao;
@@ -39,9 +40,17 @@ public class CompController {
 	}
 	
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public String getList(Model model) {
+	public String getList(@RequestParam(name="cp_title",required = false, defaultValue = "")
+	String searchText, Model model) {
 		
 		List<CompVO> compList = compService.selectAll();
+		
+		if(searchText == null || searchText.trim().equals("")) {
+			compList = compService.selectAll();
+		} else {
+			compList = compService.findByTitleAndCeoAndTel(searchText);
+		}
+		
 		model.addAttribute("COMPS", compList);
 		
 		return "comp/search";

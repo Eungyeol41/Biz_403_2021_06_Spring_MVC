@@ -19,7 +19,7 @@
 		margin-left: 10px;
 	}
 </style>
-<script src="${rootPath}/static/js/book_input.js?ver=2021-06-21-003"></script>
+<script src="${rootPath}/static/js/book_input.js?ver=2021-06-21-004"></script>
 <body>
 	<%@ include file="/WEB-INF/views/include/include_header.jspf"%>
 	<section class="main_sec">
@@ -51,14 +51,14 @@
 						placeholder="">
 				</div>
 				<div>
-					<label>페이지 수</label> <input name="bk_pages" id="bk_pages"
+					<label>페이지 수</label> <input name="bk_pages" id="bk_pages" value="0"
 						placeholder="">
 				</div>
 			</fieldset>
 			<div class="btn_box">
-				<button type="button" class="btn_save">도서 등록</button>
-				<button type="reset" class="btn_reset">새로 작성</button>
-				<button type="button" class="btn_list">List로</button>
+				<button type="button" class="btn_save book">도서 등록</button>
+				<button type="reset" class="btn_reset book">새로 작성</button>
+				<button type="button" class="btn_list book">List로</button>
 			</div>
 		</form>
 	</section>

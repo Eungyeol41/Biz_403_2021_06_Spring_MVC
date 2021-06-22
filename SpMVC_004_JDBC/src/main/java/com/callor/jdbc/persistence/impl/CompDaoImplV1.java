@@ -145,14 +145,25 @@ public class CompDaoImplV1 implements CompDao{
 
 	@Override
 	public List<CompVO> findByTel(String tel) {
-		// TODO Auto-generated method stub
-		return null;
+
+		String sql = " SELECT * FROM tbl_company ";
+		sql += " WHERE cp_tel LIKE CONCAT('%', ? '%' ) "; // mysql
+		List<CompVO> compList = jdbcTemplate.query(sql, new Object[] { tel },
+				new BeanPropertyRowMapper<CompVO>(CompVO.class));
+		return compList;
+
 	}
 
 	@Override
 	public List<CompVO> findByCeo(String ceo) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		String sql = " SELECT * FROM tbl_company ";
+		sql += " WHERE cp_ceo LIKE CONCAT('%', ? '%' ) "; // mysql
+		
+		List<CompVO> compList = jdbcTemplate.query(sql, new Object[] { ceo },
+				new BeanPropertyRowMapper<CompVO>(CompVO.class));
+		
+		return compList;
 	}
 
 }

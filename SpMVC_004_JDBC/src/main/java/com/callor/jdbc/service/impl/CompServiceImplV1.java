@@ -44,11 +44,11 @@ public class CompServiceImplV1 implements CompService{
 	}
 
 	@Override
-	public List<CompVO> findByCName(String cp_name) {
+	public List<CompVO> findByCName(String cp_title) {
 		// TODO Auto-generated method stub
 		
 		// 전달받은 출판사 이름에서 앞뒤의 빈칸을 제거하고 dao에 Toss한 후 출판사 리스트를 받아 다시 return하기
-		return compDao.findByCName(cp_name.trim());
+		return compDao.findByCName(cp_title.trim());
 		
 	}
 
@@ -64,6 +64,19 @@ public class CompServiceImplV1 implements CompService{
 		// TODO Auto-generated method stub
 		
 		return compDao.findById(cp_code.trim());
+	}
+	
+	
+	public List<CompVO> findByTitleAndCeoAndTel(String text) {
+		
+		List<CompVO> mainList = compDao.findByCName(text);
+		List<CompVO> ceoList = compDao.findByCName(text);
+		List<CompVO> telList = compDao.findByCName(text);
+		
+		mainList.addAll(ceoList);
+		mainList.addAll(telList);
+		
+		return mainList;
 	}
 	
 
