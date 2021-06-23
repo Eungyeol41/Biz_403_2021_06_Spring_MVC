@@ -36,9 +36,9 @@ button.btn_book_insert {
 						<tr>
 							<td>${ST.index}</td>
 							<td>${BOOKS.bk_isbn }</td>
-							<td>${BOOKS.bk_title}</td>
-							<td>${BOOKS.bk_ccode}</td>
-							<td>${BOOKS.bk_acode}</td>
+							<td><span><label class="truncate">${BOOKS.bk_title}</label></span></td>
+							<td><span><label class="truncate">${BOOKS.bk_ccode}</label></span></td>
+							<td><span><label class="truncate">${BOOKS.bk_acode}</label></span></td>
 							<td>${BOOKS.bk_date}</td>
 							<td>${BOOKS.bk_price}</td>
 							<td>${BOOKS.bk_pages}</td>

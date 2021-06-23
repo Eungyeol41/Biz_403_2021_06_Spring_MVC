@@ -3,80 +3,75 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="rootPath" value="${pageContext.request.contextPath}" />
 <style>
-h1.page_title {
-	width: 90%;
-	margin: 10px auto;
-}
-
-nav#main_nav {
-	background-color: gainsboro;
-	color: black;
-}
-
-nav#main_nav ul {
-	list-style: none;
-	display: flex;
-}
-
-/*
-			ul li tag를 메뉴 등으로 설정할 경우
-			
-			기본값으로 하면 각 메뉴들이 다닥다닥 붙게되어 보기가 싫다
-			
-			이 때 다음과 같은 방법으로 보기에 좋은 모양을 갖출 수 있다.
-				1. li tag에 height, width 값을 주어 간격을 적절히 설정하는 방법
-				2. li tag에 padding을 넣는 방법
-			
-			1번 방법은 hover 등을 설정했을 때 li와 ul tag 사이에서 간격들이 나타나는 경우가 발생할 수 있다.
-			2번 방법은 별도의 처리를 하지 않아도 비교적 깔끔한 모양을 얻을 수 있다. 
-		*/
-nav#main_nav li {
-	/* top, bottom : 5px & left, light : 12px */
-	padding: 5px 12px;
-}
-
-nav#main_nav li:first-child {
-	margin-left: 30px;
-}
-
-nav#main_nav li:nth-of-type(5) {
-	margin-left: auto;
-}
-
-nav#main_nav li:hover {
-	background-color: gold;
-	cursor: pointer;
-	transition: 0.5s;
-}
-
-/* home.jsp에서 중간에 이미지를 표현하는 부분의 CSS인데 rootPath 변수 사용 관계로 별도의 main_home.css에 둘 수 없어서 여기에 둔다. */
-section#ad_sec article:nth-of-type(1) {
-	background: url("${rootPath}/static/images/ad_1.jpg") no-repeat;
-}
-
-section#ad_sec article:nth-of-type(2) {
-	background: url("${rootPath}/static/images/ad_2.jpg") no-repeat;
-}
-
-section#ad_sec article:nth-of-type(3) {
-	background: url("${rootPath}/static/images/ad_6.jpg") no-repeat;
-}
-
-section#ad_sec article:nth-of-type(4) {
-	background: url("${rootPath}/static/images/ad_2.jpg") no-repeat;
-}
-
-section#ad_sec article:nth-of-type(5) {
-	background: url("${rootPath}/static/images/ad_1.jpg") no-repeat;
-}
-
-/* 
+	nav#main_nav {
+		background-color: gainsboro;
+		color: black;
+	}
+	
+	nav#main_nav ul {
+		list-style: none;
+		display: flex;
+	}
+	
+	/*
+		ul li tag를 메뉴 등으로 설정할 경우
+		
+		기본값으로 하면 각 메뉴들이 다닥다닥 붙게되어 보기가 싫다
+		
+		이 때 다음과 같은 방법으로 보기에 좋은 모양을 갖출 수 있다.
+			1. li tag에 height, width 값을 주어 간격을 적절히 설정하는 방법
+			2. li tag에 padding을 넣는 방법
+		
+		1번 방법은 hover 등을 설정했을 때 li와 ul tag 사이에서 간격들이 나타나는 경우가 발생할 수 있다.
+		2번 방법은 별도의 처리를 하지 않아도 비교적 깔끔한 모양을 얻을 수 있다. 
+	*/
+	nav#main_nav li {
+		/* top, bottom : 5px & left, light : 12px */
+		padding: 5px 12px;
+	}
+	
+	nav#main_nav li:first-child {
+		margin-left: 30px;
+	}
+	
+	nav#main_nav li:nth-of-type(5) {
+		margin-left: auto;
+	}
+	
+	nav#main_nav li:hover {
+		background-color: gold;
+		cursor: pointer;
+		transition: 0.5s;
+	}
+	
+	/* home.jsp에서 중간에 이미지를 표현하는 부분의 CSS인데 rootPath 변수 사용 관계로 별도의 main_home.css에 둘 수 없어서 여기에 둔다. */
+	section#ad_sec article:nth-of-type(1) {
+		background: url("${rootPath}/static/images/ad_1.jpg") no-repeat;
+	}
+	
+	section#ad_sec article:nth-of-type(2) {
+		background: url("${rootPath}/static/images/ad_2.jpg") no-repeat;
+	}
+	
+	section#ad_sec article:nth-of-type(3) {
+		background: url("${rootPath}/static/images/ad_6.jpg") no-repeat;
+	}
+	
+	section#ad_sec article:nth-of-type(4) {
+		background: url("${rootPath}/static/images/ad_2.jpg") no-repeat;
+	}
+	
+	section#ad_sec article:nth-of-type(5) {
+		background: url("${rootPath}/static/images/ad_1.jpg") no-repeat;
+	}
+	
+	/* 
 		가상클래스를 사용할 때 위치값 [nth-of-type(위치)]를 지정하여 style을 지정하는데 전역 시스템 변수인 n 존재
 		n => style의 가상클래스에서 사용하는 변수로 '모든 것'이라는 의미
 	*/
-section#ad_sec article:nth-of-type(n) {
-	background-size: 100% 100%;
-}
+	section#ad_sec article:nth-of-type(n) {
+		background-size: 100% 100%;
+	}
 </style>
 <script>
 	var rootPath = "${rootPath}"
@@ -95,9 +90,9 @@ section#ad_sec article:nth-of-type(n) {
 		<li>저자정보</li>
 
 		<%-- 
-				USERVO 속성에는 로그인(정상 인증된)한 사용자의 정보가 담겨있게 된다.
-				이 정보는 현재 서비스를 계속 사용하는 동안에는 언제든지 어떤 JSP에서든지 값을 사용(조회, 읽기)할 수 있다.
-			 --%>
+			USERVO 속성에는 로그인(정상 인증된)한 사용자의 정보가 담겨있게 된다.
+			이 정보는 현재 서비스를 계속 사용하는 동안에는 언제든지 어떤 JSP에서든지 값을 사용(조회, 읽기)할 수 있다.
+		--%>
 		<c:if test="${empty USERVO}">
 			<li>로그인</li>
 			<li>회원가입</li>

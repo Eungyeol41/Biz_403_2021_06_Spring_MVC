@@ -13,6 +13,13 @@ body {
 	height: 100vh;
 }
 
+h1.page_title {
+	width: 90%;
+	
+	/* top, right, bottom, left */
+	margin: 10px auto 0 auto;
+}
+
 section.main_sec {
 	flex: auto;
 }
@@ -25,6 +32,7 @@ header {
 	padding: 2rem;
 }
 
+
 /*
 	style 지정을 할 때 tag에 id나 class를 부착하지 않고 지정하는 경우
 	1. 현재 main_layout.css 파일은 모든 jsp에서 공통으로 include_*.jsp에 있는 table에 공통으로 속성이 적용된다.
@@ -33,6 +41,12 @@ header {
 	3. 전체 프로젝트의 view를 일관되게 구현하고자 할 때 대표적인 tag에 style을 지정하고 include하여 사용하는 방법
 */
 table {
+	/* 
+		CSS 2.1 적용 spec
+		table을 구성했을 때 td에 있는 text(content)의 길이가 변동되거나 할 때 
+			table의 전체 모양이 움찔거리는 현상을 방지하는 속성
+	*/
+	table-layout: fixed;
 	border-collapse: collapse;
 	border-spacing: 0;
 	width: 90%;
@@ -42,22 +56,49 @@ table {
 table th, td {
 	border-top: 1px solid gainsboro;
 	text-align: center;
+	/* text font 크기에 따라 높이를 고정하는 속성 */
 	padding: 5px 8px;
+	height: 2rem;
 }
 
 table td {
 	margin-left: 30px;
 	text-align: left;
 	padding-left: 10px;
-	max-width: 0;
+}
+
+/* td의 text가 넘칠경우 ellipsis를 적용하는 데 단순히 td에 적용하면 이웃하는 다른 td의 글자와 겹치는 현상이 발생 */
+table td span {
+	position: relative;
+	height: 1.2rem;
+	display: inline-block;
+	margin-top: 5px;
+}
+
+table td label.truncate {
+	max-width: 80px;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+	cursor: inherit;
+	display: inline-block;
 }
+
 /* td에 마우스 hover되면 ellipsis를 해제하여 text를 그대로 보여주기 */
-table td:hover {
+/*
+	table td:hover {
+		overflow: visible;
+		text-overflow: inherit;
+	}
+*/
+table td:hover label.truncate {
+	position: absolute;
+	max-width: none;
+	background-color: #aaa;
 	overflow: visible;
-	text-overflow: inherit;
+	top: -6px;
+	padding: 5px 20px 5px 0;
+	z-index: 100;
 }
 
 table tr:last-child td {
