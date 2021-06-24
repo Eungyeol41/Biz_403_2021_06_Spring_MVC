@@ -17,6 +17,6 @@ public class ScoreDTO {
 	private String sc_stnum;
 	private String sc_stname;
 	private String sc_sbcode;
-	private String sc_Sbname;
-	private int sc_sbscore;
+	private String sc_sbname;
+	private int sc_score;
 }
