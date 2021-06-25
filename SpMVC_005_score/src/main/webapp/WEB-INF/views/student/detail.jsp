@@ -54,17 +54,17 @@ table.student_detail td {
 	</c:if>
 </div>
 
-<form id="student_detail">
+<form id="student_detail" method="POST">
 	<fieldset>
 		<c:forEach items="${SSLIST}" var="SS">
 			<div>
-				<label>${SS.ss_stname}</label> <input name="subject"
-					value="${SS.ss_code}" type="hidden"> <input name="score"
-					value="${SS.ss_score}">
+				<label>${SS.ss_stname}</label>
+				<input name="subject" value="${SS.ss_code}" type="hidden">
+				<input name="score" value="${SS.ss_score}">
 			</div>
 		</c:forEach>
 		<div class="btn_box">
-			<button type="button" class="save">저장</button>
+			<button type="submit" class="save">저장</button>
 			<button type="button" class="list">리스트로</button>
 			<button type="button" class="student home">처음으로</button>
 		</div>

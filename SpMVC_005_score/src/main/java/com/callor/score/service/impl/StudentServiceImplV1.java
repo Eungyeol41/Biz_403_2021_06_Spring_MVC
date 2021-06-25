@@ -13,6 +13,7 @@ import com.callor.score.dao.ext.ScoreDao;
 import com.callor.score.dao.ext.StudentDao;
 import com.callor.score.dao.ext.SubjectDao;
 import com.callor.score.model.ScoreDTO;
+import com.callor.score.model.ScoreInputVO;
 import com.callor.score.model.ScoreVO;
 import com.callor.score.model.StudentVO;
 import com.callor.score.model.SubjectAndScoreDTO;
@@ -147,6 +148,21 @@ public class StudentServiceImplV1 implements StudentService{
 		model.addAttribute("STD", stVO);
 		
 		return ret;
+	}
+
+	@Override
+	public String scoreInput(ScoreInputVO scInputVO) {
+		// TODO Auto-generated method stub
+		
+		log.debug("Service RCV {}", scInputVO.toString());
+		
+		int size = scInputVO.getSubject().size();
+		for(int i = 0; i < size; i++) {
+			scDao.insertOrUpdate(scInputVO.getSt_num(), scInputVO.getSubject().get(i), scInputVO.getScore().get(i));
+			
+		}
+		
+		return null;
 	}
 
 }
