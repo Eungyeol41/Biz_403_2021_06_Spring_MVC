@@ -3,18 +3,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="rootPath" value="${pageContext.request.contextPath}" />
 <style>
-	button.score.insert {
-		background-color: lightskyblue;
-		color: white;
+/*
+	button {
+		background-color: #f6ecc4
 	}
-	
-	button.score.student {
-		background-color: gold;
-		color: white;
-	}
+*/
 </style>
 <h2>성적 리스트</h2>
-<table>
+<table class="score_list detail">
 	<tr>
 		<th>학번</th>
 		<th>이름</th>
@@ -30,7 +26,7 @@
 		</c:when>
 		<c:otherwise>
 			<c:forEach items="${SCLIST}" var="SC">
-				<tr>
+				<tr data-stnum="${SC.sc_stnum}">
 					<td>${SC.sc_stnum}</td>
 					<td>${SC.sc_stname}</td>
 					<td>${SC.sc_sbcode}</td>
@@ -45,3 +41,20 @@
 	<button class="score insert">성적 등록</button>
 	<button class="score student list">학생정보 바로가기</button>
 </div>
+<script>
+/*
+	document.querySelector("table.score_list").addEventListener("click", (e)=> {
+		
+		let target = e.target
+		let tagName = target.tagName
+		
+		if(tagName === "TD") {
+			let tr = target.closest("TR")
+			let stNum = tr.dataset.stnum
+			
+			location.href = "${rootPath}/score/detail?st_num=" + stNum
+		}
+		
+	})
+*/	
+</script>

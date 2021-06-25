@@ -25,7 +25,7 @@
 	
 	header {
 		height: 30vh;
-		background: url("${rootPath}/static/images/header_background.jpg") no-repeat;
+		background: url("${rootPath}/static/images/header_01.jpg") no-repeat;
 		background-size: 100% 100%;
 		background-position: top;
 		background-attachment: fixed;
@@ -43,10 +43,7 @@
 		
 		background-size: 100% 100%;
 		background-attachment: fixed;
-		background: linear-gradient(315deg, #ddcad9 0%, #d1b1cb 74%);
-
-)
-		
+		background-image: linear-gradient(to top, #d9afd9 0%, #97d9e1 100%);
 	}
 	
 	table {
@@ -103,6 +100,10 @@
 		border-radius: 5px;
 	}
 	
+	button {
+		background-image: linear-gradient(to top, #c1dfc4 0%, #deecdd 100%);
+	}
+	
 	button:hover {
 		box-shadow: 2px 2px 2px 2px black;
 		cursor: wait;
@@ -156,6 +157,9 @@
 			<c:when test="${BODY == 'STUDENT_INPUT'}">
 				<%@ include file="/WEB-INF/views/student/input.jsp"%>
 			</c:when>
+			<c:when test="${BODY == 'STUDENT_DETAIL'}">
+				<%@ include file="/WEB-INF/views/student/detail.jsp"%>
+			</c:when>
 			<c:otherwise>
 				<%@ include file="/WEB-INF/views/main.jsp"%>
 			</c:otherwise>
@@ -190,5 +194,25 @@
 			location.href = "${rootPath}/";
 		})
 	}
+	
+	let table = document.querySelector("table.detail")
+	
+	if(table != null) {
+		table.addEventListener("click", (e)=> {
+			
+			let target = e.target
+			let tagName = target.tagName
+			
+			if(tagName === "TD") {
+				let tr = target.closest("TR")
+				let stNum = tr.dataset.stnum
+				
+				location.href = "${rootPath}/student/detail?st_num=" + stNum
+			}
+		})
+	}
+	
+		
+
 </script>
 </html>

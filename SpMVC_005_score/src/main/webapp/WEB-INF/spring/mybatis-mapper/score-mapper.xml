@@ -5,6 +5,16 @@
 
 <mapper namespace="com.callor.score.dao.ext.ScoreDao">
 
+	<select id="scoreCount" resultType="Integer">
+		SELECT COUNT(*) FROM tbl_score
+		WHERE sc_stnum = #{sc_stnum}
+	</select>
+	
+	<select id="scoreSum" resultType="Integer">
+		SELECT SUM(sc_score) FROM tbl_score
+		WHERE sc_stnum
+	</select>
+
 	<select id="selectAll" resultType="ScoreVO">
 		SELECT * FROM tbl_score
 	</select>
@@ -27,6 +37,19 @@
 			LEFT JOIN tbl_subject SB
 				ON SC.sc_sbcode = SB.sb_code
 		ORDER BY sc_stnum, sc_sbcode
+	</select>
+	
+	<select id="selectSubjectAndScore" resultType="SubjectAndScoreDTO">
+		SELECT 
+			SB.sb_code AS ss_code, 
+			SB.sb_name AS ss_stname, 
+			SB.sb_prof AS ss_prof, 
+			SC.sc_stnum AS ss_stnum, 
+			SC.sc_score AS ss_score
+		FROM tbl_subject SB
+			LEFT JOIN tbl_score SC
+				ON SC.sc_sbcode = SB.sb_code
+		        AND SC.sc_stnum = #{st_num} LIMIT 5
 	</select>
 	
 	<insert id="insert" parameterType="ScoreVO">
