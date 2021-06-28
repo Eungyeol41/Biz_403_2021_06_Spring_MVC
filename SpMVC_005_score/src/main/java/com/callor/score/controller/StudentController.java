@@ -57,13 +57,24 @@ public class StudentController {
 //	public String detail(
 //			@RequestParam(name="subject") List<String> subject,
 //			@RequestParam(name="score") List<String> score) {
-	public String detail(ScoreInputVO scInputVO) {
+	public String detail(ScoreInputVO scInputVO, Model model) {
 //		log.debug("Subject {}", subject.toString());
 //		log.debug("Score {}", score.toString());
 		
 		log.debug("Score Input {}", scInputVO.toString());
+		
 		String ret = stService.scoreInput(scInputVO);
-		return "home";
+		String st_num = scInputVO.getSt_num();
+		
+		/*
+		 * model.addAttribute를 해주면 밑에와 같이 작성하지 않아도
+		 * return "redirect:/student/detail?st_num=" + st_num
+		 * 
+		 * st_num 값이 따라가게 된다.
+		 */
+		// redirect를 수행할 대 query String을 보내고 싶으면 해당 변수와 값을 model에 속성(addAttribute)으로 추가
+		model.addAttribute("st_num", st_num);
+		return "redirect:/student/detail";
 	}
 	
 	@RequestMapping(value = "/insert", method = RequestMethod.POST )

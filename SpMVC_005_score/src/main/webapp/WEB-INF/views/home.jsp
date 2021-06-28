@@ -35,15 +35,55 @@
 		padding: 2rem;
 	}
 	
+	nav {
+		background-color: black;
+		color: white;
+		width: 100wv;
+	}
+	
+	nav.fixed {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 10px;
+		border-bottom-right-radius: 20px;
+		box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+	}
+	
+	nav ul {
+		list-style: none;
+		display: flex;
+		margin: 0 20px;
+	}
+	
+	nav li {
+		padding: 16px 12px;
+		border-bottom: 3px solid transparent;
+		transition: 0.5s;
+	}
+	
+	nav li:hover {
+		border-bottom: 3px solid gold;
+		cursor: pointer;
+	}
+	
+	nav li:nth-of-type(2) {
+		margin-left: auto;
+	}
+	
 	section#main_sec {
 		flex: 1;
 		width: 100wv;
 		display: flex;
 		flex-direction: column;
-		
 		background-size: 100% 100%;
 		background-attachment: fixed;
 		background-image: linear-gradient(to top, #d9afd9 0%, #97d9e1 100%);
+		/* 
+				overflow: auto;
+				
+				header와 nav를 화면에 고정하고 data가 보이는 부분만 scroll하기 위함.
+			 */
 	}
 	
 	table {
@@ -73,20 +113,23 @@
 	tr:hover {
 		background-color: #ccc;
 	}
+	
 	tr:hover {
-		background-color: #aaa; 
+		background-color: #aaa;
 	}
+	
 	td, th {
 		border-right: 1px solid green;
 		padding: 8px 12px;
 	}
+	
 	td:last-child, th:last-child {
 		border: none;
 	}
 	
 	div.btn_box {
 		width: 90%;
-		/* table의 margin: 10px auto;로 설정되있기 때문에 margin-top: 0, magin-bottom: 10px, margin-left, margin-right: auto로 설정 */ 
+		/* table의 margin: 10px auto;로 설정되있기 때문에 margin-top: 0, magin-bottom: 10px, margin-left, margin-right: auto로 설정 */
 		margin: 0px auto 10px auto;
 		padding: 5px;
 		text-align: right;
@@ -96,7 +139,7 @@
 		border: 0;
 		outline: 0;
 		padding: 12px 16px;
-		margin-left: 10px; 
+		margin-left: 10px;
 		border-radius: 5px;
 	}
 	
@@ -143,8 +186,17 @@
 <body>
 	<header>
 		<h1>대한고교 성적처리</h1>
-		<p> 대한고교 성적처리 시스템 2021 V1</p>
+		<p>대한고교 성적처리 시스템 2021 V1</p>
 	</header>
+
+	<nav id="main_nav">
+		<ul>
+			<li>HOME</li>
+			<li>Login</li>
+			<li>Logout</li>
+			<li>관리자</li>
+		</ul>
+	</nav>
 
 	<section id="main_sec">
 		<c:choose>
@@ -211,6 +263,27 @@
 			}
 		})
 	}
+	
+	let main_nav = document.querySelector("nav#main_nav")
+	let main_header = document.querySelector("header")
+	let main_header_height = main_header.offsetHeight;
+	
+	document.addEventListener("scroll", ()=> {
+		let doc_bound = document.querySelector("HTML").getBoundingClientRect();
+		let doc_top = doc_bound.top
+		
+		/*
+			화면이 아래방향으로 scroll될 때 화면 문서의 top 좌표를 추출하여 header box의 높이와 비교
+			
+			header box의 높이에 -1을 곱하고 그 값보다 작아지면 (== header box가 화면에서 사라지면) nav에 fixed라는 class 부착하고
+			header box가 화면에서 나타나면 nav에 fixed class를 제거하여 원래 모습으로 다시 보이기
+		*/
+		if(doc_top < main_header_height * -1) {
+			main_nav.classList.add("fixed")
+		} else {
+			main_nav.classList.remove("fixed")
+		}
+	});
 	
 		
 
