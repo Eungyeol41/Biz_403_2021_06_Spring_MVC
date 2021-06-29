@@ -1,45 +1,33 @@
 package com.callor.book.service;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.util.List;
 
-import org.springframework.stereotype.Service;
+import org.json.simple.parser.ParseException;
 
-import lombok.extern.slf4j.Slf4j;
+import com.callor.book.model.BookDTO;
 
-@Slf4j
-@Service
-public class NaverService {
+/*
+ * Naver의 Open API를 통하여 데이터를 검색하는 service
+ * 
+ * 도서정보, 뉴스정보, 영화정보를 가져올텐데 Naver에서 제공하는 데이터가 조금씩 차이가 난다
+ * 
+ * OpenAPI를 통해서 데이터를 가져올 때 받을 데이터에 대한 VO(DTO)를 생성해야 한다
+ * 
+ * Naver에 받을 데이터에 대한 VO를 만들어야 하는데 각각 도서, 뉴스, 영화 데이터가 조금씩 달라서 3개의 VO를 생성해야 한다
+ * 그래서 인터페이스에 Generic을 선언하여 VO별로 필요에 따라 클래스를 만들 수 있도록 한다.
+ */
+public interface NaverService<T> {
 
-	/*
-	 * Naver에 요청하기
-	 * 
-	 * BookURL + "?query=" + 검색문자열
-	 */
-	protected final String BookURL = "https://openapi.naver.com/v1/search/book.json";
-	protected final String NewsURL = "https://openapi.naver.com/v1/search/news.json";
-	protected final String MovieURL = "https://openapi.naver.com/v1/search/movie.json";
+	// 검색문자열을 받아서 검색을 위한 URL을 생성하여 return
+	public String queryURL(String search_text);
 	
-	public String queryURL(String search) {
-		
-		// 검색하고자 하는 문자열을 UTF-8로 인코딩하라
-		String searchUTF8 = null;
-		try {
-			 searchUTF8 = URLEncoder.encode(search, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		StringBuilder queryURL = new StringBuilder();
-		queryURL.append(BookURL); // queryString += BookURL
-		
-		String queryString = String.format("?query=%s", searchUTF8);
-		queryURL.append(queryString);
-		
-		queryString = String.format("&display=%d", 20);
-		queryURL.append(queryString);
-		
-		return queryURL.toString();
-	}
+	// queryURL을 Naver에 보내고 Naver가 보낸 데이터를 JSON 형태의 문자열로s 만들어서 return
+	public String getJsonString(String queryURL) throws MalformedURLException, IOException;
+	
+	// JSON 형태의 문자열을 받아서 VO를 담은 List type으로 return
+	// JSON 문자열을 parsing하여 객체(리스트) type으로 변환
+	public List<BookDTO> getNaverList(String jsonString) throws ParseException;
+	
 }
