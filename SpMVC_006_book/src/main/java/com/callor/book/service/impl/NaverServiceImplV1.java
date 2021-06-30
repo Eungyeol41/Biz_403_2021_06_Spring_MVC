@@ -25,7 +25,7 @@ import com.callor.book.service.NaverService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Service
+@Service("naverServiceV1")
 public class NaverServiceImplV1 implements NaverService<BookDTO>{
 
 	/*
@@ -33,8 +33,6 @@ public class NaverServiceImplV1 implements NaverService<BookDTO>{
 	 * 
 	 * BookURL + "?query=" + 검색문자열
 	 */
-	
-	
 	public String queryURL(String search) {
 		
 		// 검색하고자 하는 문자열을 UTF-8로 인코딩하라
@@ -135,6 +133,8 @@ public class NaverServiceImplV1 implements NaverService<BookDTO>{
 	@Override
 	public List<BookDTO> getNaverList(String jsonString) throws ParseException {
 		// TODO Auto-generated method stub
+		
+		log.debug("ServiceV1!!");
 		
 		// 1. JSON Parsing 도구 선언
 		JSONParser jParser = new JSONParser();

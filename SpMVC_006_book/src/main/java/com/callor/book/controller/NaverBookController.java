@@ -3,7 +3,6 @@ package com.callor.book.controller;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
-import java.util.Locale;
 
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,28 +16,29 @@ import com.callor.book.model.BookDTO;
 import com.callor.book.service.NaverService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Controller
+@RequestMapping(value = "/book")
 @RequiredArgsConstructor
-public class HomeController {
+public class NaverBookController {
 	
 	@Qualifier("naverServiceV1")
 	protected final NaverService<BookDTO> nBookService;
+
+	@RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
+	public String home(@RequestParam(name="search", required = false, defaultValue = "") String search, Model model) throws MalformedURLException, IOException, ParseException {
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(@RequestParam(name = "category", required = false, defaultValue = "") String category, Model model) {
-		
-//		model.addAttribute("CAT", category);
-		if(category.equalsIgnoreCase("BOOK")) {
-			return "redirect:/book";
-		} else if(category.equalsIgnoreCase("MOVIE")) {
-			return "redirect:/movie";
-		} else if(category.equalsIgnoreCase("NEWS")) {
-			return "redirect:/news";
+		if(search != null && !search.equals("")) {
+			String queryURL = nBookService.queryURL(search.trim());
+			String jsonString = nBookService.getJsonString(queryURL);
+			List<BookDTO> bookList = nBookService.getNaverList(jsonString);
+			
+			model.addAttribute("BOOKS", bookList);
 		}
-		return "redirect:/book";
+		
+		model.addAttribute("pHolder", "도서명");
+		
+		return "home";
 	}
 	
 }

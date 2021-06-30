@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="rootPath" value="${pageContext.request.contextPath}" />    
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="rootPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,11 +14,31 @@
 		padding: 0;
 	}
 	
+	body {
+		display: flex;
+		flex-direction: column;
+		height: 100vh;
+	}
+	
+	form input {
+		
+	}
+	
 	section.content_box {
 		border: 1px solid green;
 		padding: 12px 16px;
 		display: flex;
 		flex-wrap: wrap;
+		
+		/*
+			검색 결과가 표시되는 영역은 scroll
+			상단의 검색창(nav) 화면에 고정하기
+			
+			1. body에 display: flex;	flex-direction: column;		height: 100vh;
+			2. 검색 결과 창에 flex: 1;	overflow: auto;
+		*/
+		flex: 1;
+		overflow: auto;
 	}
 	
 	section.content_box div.content {
@@ -40,11 +60,11 @@
 		margin: 5px;
 	}
 	
-	@media (min-width: 1200px) {
+	@media ( min-width : 1200px) {
 		section.content_box div.content {
 			width: 20%;
 		}
-	}	
+	}
 	
 	a {
 		text-decoration: none;
@@ -75,40 +95,47 @@
 		border: 0;
 		outline: 0;
 		width: 100%;
+		border-radius: 5px;
 	}
 	
+	nav#main_nav select {
+		margin-left: auto;
+		padding: 8px;
+		width: 10%;
+		border-radius: 10px;
+		text-align-last: center;
+	}
+	
+	nav#main_nav select option {
+		text-align: center;
+	}
 </style>
 </head>
 <body>
 	<nav id="main_nav">
+		<select name="category">
+			<option value="BOOK">도서검색</option>
+			<option value="MOVIE">영화검색</option>
+			<option value="NEWS">뉴스검색</option>
+		</select>
 		<form>
-			<input name="search" placeholder="도서명 입력 후 Enter">
-		</form>
-	</nav>	
+				<input name="search" placeholder="${pHolder} 입력 후 Enter">
+			</form>
+	</nav>
 	<section class="content_box">
-		<c:forEach items="${BOOKS}" var="BOOK">
-			<div class="content">
-				<img src="${BOOK.image}">
-				<div>
-					<p class="title">
-						<a href="${BOOK.link}" target="_NEW">${BOOK.title}</a>
-					</p>
-					<br/>
-					<!-- <p class="desc">${BOOK.description}</p> -->
-					<br/>
-					<p class="author">
-						<strong>저자 : </strong>${BOOK.author}
-					</p>
-					<br/>
-					<p class="publisher">
-						<strong>출판사 : </strong>
-						${BOOK.publisher}
-					</p>
-					<br/>
-					<button class="insert">책 등록</button>
-				</div>
-			</div>
-		</c:forEach>
+		<%@ include file="/WEB-INF/views/book_list.jsp" %>
+		<%@ include file="/WEB-INF/views/movie_list.jsp" %>
+		<%@ include file="/WEB-INF/views/news_list.jsp" %>
 	</section>
 </body>
+<script>
+	let category = document.querySelector("select[name='category']")
+	category.addEventListener("change", (e)=> {
+		
+		let value = category.value
+		// alert(value);
+		
+		location.href = "${rootPath}/?category=" + value;
+	})
+</script>
 </html>
