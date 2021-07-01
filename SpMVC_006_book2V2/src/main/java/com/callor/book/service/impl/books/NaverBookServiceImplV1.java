@@ -20,13 +20,14 @@ import org.springframework.stereotype.Service;
 
 import com.callor.book.config.NaverSecret;
 import com.callor.book.model.BookDTO;
+import com.callor.book.service.NaverAbstractService;
 import com.callor.book.service.NaverBookService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service("naverBookServiceV1")
-public class NaverBookServiceImplV1 implements NaverBookService{
+public class NaverBookServiceImplV1 extends NaverAbstractService<BookDTO> {
 
 	/*
 	 * Naver에 요청하기
@@ -55,74 +56,6 @@ public class NaverBookServiceImplV1 implements NaverBookService{
 		
 		log.debug("queryURL{}", queryURL.toString());
 		return queryURL.toString();
-	}
-
-	 // queryURL을 Naver에 전송하고 Naver로부터 결과를 받는 method
-	@Override
-	public String getJsonString(String queryURL) throws IOException {
-		// TODO Auto-generated method stub
-		
-		// API를 통하여 다른 서버에 Request를 보낼 때 사용할 객체
-		URL url = null;
-		
-		// Http 프로토콜을 통하여 다른 서버에 연결할 대 사용할 객체
-		HttpsURLConnection httpConn = null;
-		
-			// queryURL 주소를 Request 정보로 변환
-			url = new URL(queryURL);
-			
-			// 생성된 URL 정보를 사용하여 다른 서버에 연결
-			httpConn = (HttpsURLConnection) url.openConnection();
-			
-			httpConn.setRequestMethod("GET");
-			httpConn.setRequestProperty("X-Naver-Client-Id", NaverSecret.NAVER_CLIENT_ID);
-			httpConn.setRequestProperty("X-Naver-Client-Secret", NaverSecret.NAVER_CLIENT_SECRET);
-			
-			// Naver가 어떤 응답을 할 것인지를 미리 확인하는 코드를 요청한다
-			int httpStatusCode = httpConn.getResponseCode();
-			
-			// Naver로부터 데이터를 수신할 객체
-			InputStreamReader is = null;
-			if(httpStatusCode == 200) {
-				is = new InputStreamReader(httpConn.getInputStream());
-			} else {
-				is = new InputStreamReader(httpConn.getErrorStream());
-			}
-			
-			// is를 buffer에 연결
-			BufferedReader buffer = null;
-			buffer = new BufferedReader(is);
-			
-			/*
-			 * StringBuilder, StringBuffer
-			 * 
-			 * String 형의 데이터를 +=처럼 사용할 때 발생하는 메모리 leak, 성능 저하 문제를 해결하기 위하여 탄생된 클래스
-			 * 
-			 * String 형의 데이터를 += 하면
-			 * 	Ex) 다음과 같은 코드를 반복하면
-			 * 			str += "Korea"
-			 * 			str += "Republic"
-			 * 
-			 * 내부적으로는 str 변수를 생성, 제거, 생성, 제거, 생성하는 코드가 반복적으로 수행된다.
-			 * 
-			 * 이러한 현상이 반복되면 메모리에 문제가 발생할 수 있다
-			 * 그러한 문제를 해결하기 위하여 탄생한 클래스다
-			 * 겉으로 보기에는 두 클래스의 역할, 사용법이 똑같다
-			 * 
-			 * StringBuilder는 Single Thread에서 최적화되어 있다.
-			 * StringBuffer는 Multi Thread에서 safe하다
-			 */
-			StringBuffer sBuffer = new StringBuffer();
-			// 가져온 데이터를 읽어서 변수에 담기
-			while(true) {
-				String reader = buffer.readLine();
-				if(reader == null) {
-					break;
-				}
-				sBuffer.append(reader);
-			}
-			return sBuffer.toString();
-			
 	}
 
 	/*

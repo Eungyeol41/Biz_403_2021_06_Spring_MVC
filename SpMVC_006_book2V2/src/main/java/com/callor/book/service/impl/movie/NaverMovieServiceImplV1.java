@@ -58,75 +58,14 @@ public class NaverMovieServiceImplV1 implements NaverMovieService{
 	public String getJsonString(String queryURL) throws MalformedURLException, IOException {
 		// TODO Auto-generated method stub
 		
-		URL url = null;
-		HttpsURLConnection httpConn = null;
-		
-		url = new URL(queryURL);
-		httpConn = (HttpsURLConnection) url.openConnection();
-		
-		httpConn.setRequestMethod("GET");
-		httpConn.setRequestProperty("X-Naver-Client-Id", NaverSecret.NAVER_CLIENT_ID);
-		httpConn.setRequestProperty("X-Naver-Client-Secret", NaverSecret.NAVER_CLIENT_SECRET);
-		
-		int httpStatusCode = httpConn.getResponseCode();
-		
-		InputStreamReader is = null;
-		if(httpStatusCode == 200) {
-			is = new InputStreamReader(httpConn.getInputStream());
-		} else {
-			is = new InputStreamReader(httpConn.getErrorStream());
-		}
-		
-		BufferedReader buffer = null;
-		buffer = new BufferedReader(is);
-		
-		StringBuffer sBuffer = new StringBuffer();
-		while (true) {
-			String reader = buffer.readLine();
-			if (reader == null) break;
-			sBuffer.append(reader);
-		}
-		return sBuffer.toString();
+		return null;
 	}
 
 	@Override
 	public List<MovieDTO> getNaverList(String jsonString) throws ParseException {
 		// TODO Auto-generated method stub
 		
-		JSONParser jParser = new JSONParser();
-		JSONObject jObject = (JSONObject) jParser.parse(jsonString);
-		JSONArray items = (JSONArray) jObject.get("items");
-		
-		List<MovieDTO> movieList = new ArrayList<MovieDTO>();
-		
-		int nSize = items.size();
-		for(int i = 0; i < nSize; i++) {
-			JSONObject item = (JSONObject) items.get(i);
-			
-			String title = item.get("title").toString();
-			String link = item.get("link").toString();
-			String image = item.get("image").toString();
-			String subtitle = item.get("subtitle").toString();
-			String pubDate = item.get("pubDate").toString();
-			String director = item.get("director").toString();
-			String actor = item.get("actor").toString();
-			String userRating = item.get("userRating").toString();
-			
-			MovieDTO movieDTO = MovieDTO.builder()
-					.title(title)
-					.link(link)
-					.image(image)
-					.subtitle(subtitle)
-					.pubDate(pubDate)
-					.director(director)
-					.actor(actor)
-					.userRating(userRating)
-					.build();
-			
-			movieList.add(movieDTO);
-			
-		}
-		return movieList;
+		return null;
 	}
 
 }
