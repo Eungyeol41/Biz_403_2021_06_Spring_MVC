@@ -21,7 +21,7 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="ds" />
 		<property name="typeAliasesPackage" value="com.callor.book.model" />
-		<property name="mapperLocations" value="/WEB-INF/spring/appServlet/mybatis-mapper/*-mapper.xml"></property>
+		<property name="mapperLocations" value="/WEB-INF/spring/mybatis-mapper/*-mapper.xml"></property>
 	</bean>
 	
 	<!-- sessionTemplate -->
@@ -35,6 +35,6 @@
 		<property name="dataSource" ref="ds" />
 	</bean>
 	
-	<mybatis-spring:scan base-package="com.callor.book.dao" />
+	<mybatis-spring:scan base-package="com.callor.book.dao.ext" />
 
 </beans>

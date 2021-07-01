@@ -20,7 +20,8 @@
 				<strong>출판사 : </strong> ${BOOK.publisher}
 			</p>
 			<br />
-			<button class="insert">책 등록</button>
+			<a href="${rootPath}/book/insert/${BOOK.isbn}">책 등록</a>
+			<!-- <button class="insert">책 등록</button> -->
 		</div>
 	</div>
 </c:forEach>

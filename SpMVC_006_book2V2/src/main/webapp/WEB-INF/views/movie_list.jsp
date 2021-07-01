@@ -11,7 +11,7 @@
 			</p>
 			<br />
 			<p class="subtitle">
-				<strong>영문 제목 : </strong>${MOVIE.subtitle}
+				<strong>RKAEH : </strong>${MOVIE.subtitle}
 			</p>
 			<br />
 			<p class="director">

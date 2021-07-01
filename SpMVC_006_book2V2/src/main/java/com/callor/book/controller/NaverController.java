@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.callor.book.service.impl.NaverMainServiceImplV1;
+import com.callor.book.config.NaverQulifier;
+import com.callor.book.service.impl.NaverMainService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class NaverController {
 	
-	protected final NaverMainServiceImplV1 nService;
+	@Qualifier(NaverQulifier.NAVER_MAIN_SERVICE_V1)
+	protected final NaverMainService nService;
 
 	/*
 	 * web client에서 서버로 Request를 할 때 어떤 데이터를 보내는 방법

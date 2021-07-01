@@ -1,16 +1,9 @@
 package com.callor.book.service.impl.books;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.net.ssl.HttpsURLConnection;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -18,15 +11,30 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
+import com.callor.book.config.NaverQulifier;
 import com.callor.book.config.NaverSecret;
 import com.callor.book.model.BookDTO;
 import com.callor.book.service.NaverAbstractService;
-import com.callor.book.service.NaverBookService;
 
 import lombok.extern.slf4j.Slf4j;
 
+/*
+ * NaverAbstractService 추상클래스를 상속받아 구현(된) 클래스
+ * 추상클래스에 사전에 정의된 jsonString() method 코드는 직접 작성하지 않고 사용할 수 있다.
+ * 		jsonString()
+ * 
+ * 추상메서드는 반드시 구현해야 한다.
+ * 		queryURL(), getNaverList()
+ * 
+ * --- 다음과 같은 형식으로 사용 가능 -------------------------------
+ * :	NaverAbstractService nService = new NaverServiceImplV1();	:
+ * :			nService.queryURL()									:
+ * :			nService.jsonString()								:
+ * :			nService.getNaverList()								:
+ * ------------------------------------------------------------------
+ */
 @Slf4j
-@Service("naverBookServiceV1")
+@Service(NaverQulifier.NAVER_BOOK_SERVICE_V1)
 public class NaverBookServiceImplV1 extends NaverAbstractService<BookDTO> {
 
 	/*

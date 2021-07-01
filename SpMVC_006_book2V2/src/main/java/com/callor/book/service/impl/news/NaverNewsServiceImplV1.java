@@ -1,4 +1,4 @@
-package com.callor.book.service.impl.movie;
+package com.callor.book.service.impl.news;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.callor.book.config.NaverQulifier;
 import com.callor.book.config.NaverSecret;
 import com.callor.book.model.MovieDTO;
+import com.callor.book.model.NewsDTO;
 import com.callor.book.service.NaverAbstractService;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -19,40 +20,37 @@ import com.google.gson.reflect.TypeToken;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Service(NaverQulifier.NAVER_MOVIE_SERVICE_V1)
-public class NaverMovieServiceImplV1 extends NaverAbstractService<MovieDTO>{
+@Service(NaverQulifier.NAVER_NEWS_SERVICE_V1)
+public class NaverNewsServiceImplV1 extends NaverAbstractService<NewsDTO>{
 
 	@Override
-	public String queryURL(String search_text) throws UnsupportedEncodingException {
+	public String queryURL(String search) throws UnsupportedEncodingException {
 		// TODO Auto-generated method stub
-
-		String searchUTF8 = URLEncoder.encode(search_text, "UTF-8");
 		
-		String queryURL = NaverSecret.Nurl.MOVIE;
+		String queryURL = NaverSecret.Nurl.NEWS;
 		queryURL += "?query=%s&display=10";
-		
+
+		String searchUTF8 = URLEncoder.encode(search, "UTF-8");
 		queryURL = String.format(queryURL, searchUTF8);
 		log.debug("queryURL : {}", queryURL);
 		
 		return queryURL;
 	}
 
-	/*
-	 * gSon을 사용하여 jsonString을 List<MovieDTO>로 변환하기
-	 */
 	@Override
-	public List<MovieDTO> getNaverList(String jsonString) throws ParseException {
+	public List<NewsDTO> getNaverList(String jsonString) throws ParseException {
 		// TODO Auto-generated method stub
 		
 		JsonElement jsonElement = JsonParser.parseString(jsonString);
 		JsonElement oItems = jsonElement.getAsJsonObject().get("items");
 		
 		Gson gson = new Gson();
-		TypeToken<List<MovieDTO>> typeToken = new TypeToken<List<MovieDTO>> () {};
+		TypeToken<List<NewsDTO>> typeToken = new TypeToken<List<NewsDTO>> () {};
 		
-		List<MovieDTO> movies = gson.fromJson(oItems, typeToken.getType());
+		List<NewsDTO> news = gson.fromJson(oItems, typeToken.getType());
 		
-		return movies;
+		return news;
+		
 	}
 
 }
