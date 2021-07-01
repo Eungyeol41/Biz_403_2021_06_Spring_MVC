@@ -18,16 +18,7 @@ import com.callor.book.model.BookDTO;
  * Naver에 받을 데이터에 대한 VO를 만들어야 하는데 각각 도서, 뉴스, 영화 데이터가 조금씩 달라서 3개의 VO를 생성해야 한다
  * 그래서 인터페이스에 Generic을 선언하여 VO별로 필요에 따라 클래스를 만들 수 있도록 한다.
  */
-public interface NaverService<T> {
+public interface NaverBookService extends NaverGenericService<BookDTO>{
 
-	// 검색문자열을 받아서 검색을 위한 URL을 생성하여 return
-	public String queryURL(String search_text);
-	
-	// queryURL을 Naver에 보내고 Naver가 보낸 데이터를 JSON 형태의 문자열로s 만들어서 return
-	public String getJsonString(String queryURL) throws MalformedURLException, IOException;
-	
-	// JSON 형태의 문자열을 받아서 VO를 담은 List type으로 return
-	// JSON 문자열을 parsing하여 객체(리스트) type으로 변환
-	public List<BookDTO> getNaverList(String jsonString) throws ParseException;
 	
 }

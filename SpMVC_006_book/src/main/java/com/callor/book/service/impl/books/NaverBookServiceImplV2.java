@@ -1,4 +1,4 @@
-package com.callor.book.service.impl;
+package com.callor.book.service.impl.books;
 
 import java.util.List;
 
@@ -26,8 +26,8 @@ import lombok.extern.slf4j.Slf4j;
  * ServiceV2에서는 getNaverList() method를 다시 작성하여 gson을 사용하여 JSON parsing을 수행하는 코드로 작성하기
  */
 @Slf4j
-@Service("naverServiceV2")
-public class NaverServiceImplV2 extends NaverServiceImplV1 {
+@Service("naverBookServiceV2")
+public class NaverBookServiceImplV2 extends NaverBookServiceImplV1 {
 	
 	@Override
 	// gSon을 사용하여 JsonString parsing하기

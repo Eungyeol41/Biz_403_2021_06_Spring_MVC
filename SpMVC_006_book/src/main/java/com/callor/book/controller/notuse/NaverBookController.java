@@ -1,4 +1,4 @@
-package com.callor.book.controller;
+package com.callor.book.controller.notuse;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.callor.book.model.BookDTO;
-import com.callor.book.service.NaverService;
+import com.callor.book.service.NaverBookService;
 
 import lombok.RequiredArgsConstructor;
 
-@Controller
-@RequestMapping(value = "/book")
+//@Controller
+//@RequestMapping(value = "/book")
 @RequiredArgsConstructor
 public class NaverBookController {
 	
 	@Qualifier("naverServiceV1")
-	protected final NaverService<BookDTO> nBookService;
+	protected final NaverBookService nBookService;
 
 	@RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
 	public String home(@RequestParam(name="search", required = false, defaultValue = "") String search, Model model) throws MalformedURLException, IOException, ParseException {
@@ -36,7 +36,8 @@ public class NaverBookController {
 			model.addAttribute("BOOKS", bookList);
 		}
 		
-		model.addAttribute("pHolder", "도서명");
+		model.addAttribute("pHolder", "도서 검색");
+//		model.addAttribute("CAT", "BOOK");
 		
 		return "home";
 	}
