@@ -46,4 +46,13 @@ public class BookServiceImplV1 implements BookService{
 		return 0;
 	}
 
+	@Override
+	public List<BookDTO> selectAll() {
+		// TODO Auto-generated method stub
+		
+		List<BookDTO> bookList = bookDao.selectAll();
+		
+		return bookList;
+	}
+
 }

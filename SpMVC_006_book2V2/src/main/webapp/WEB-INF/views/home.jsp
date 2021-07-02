@@ -133,9 +133,14 @@
 			</form>
 	</nav>
 	<section class="content_box">
-		<%@ include file="/WEB-INF/views/book_list.jsp" %>
+		<%@ include file="/WEB-INF/views/book/book_list.jsp" %>
 		<%@ include file="/WEB-INF/views/movie_list.jsp" %>
 		<%@ include file="/WEB-INF/views/news_list.jsp" %>
+		
+		<c:if test="${not empty MYBOOKS}">
+			<%@ include file="/WEB-INF/views/book/list_view.jsp" %>
+		</c:if>
+		
 	</section>
 </body>
 <script>
