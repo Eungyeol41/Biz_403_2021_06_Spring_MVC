@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.condition.ConsumesRequestCondition;
 
 import com.callor.book.config.NaverQulifier;
 import com.callor.book.model.BookDTO;
@@ -68,4 +70,16 @@ public class NaverController {
 
 	}
 
+	@ResponseBody
+	@RequestMapping(value = "/get/json", method = RequestMethod.GET, produces = "application/json;char=UTF8")
+	public String getJson() throws Exception {
+		
+		String cat = "NEWS";
+		String search = "COVID";
+		
+		String jsonString = nService.naverGetJsonString(cat, search);
+		
+		return jsonString;
+	}
+	
 }
