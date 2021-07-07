@@ -75,14 +75,18 @@ public class GalleryServiceImplV1 implements GalleryService {
 
 		List<FileDTO> files = new ArrayList<FileDTO>();
 		
+		List<MultipartFile> fileList = m_file.getFiles("m_file");
+		
 		// 업로드된 멀티파일을 서버에 업로드하고 원래 파일이름과 UUID가 첨가된 파일이름을 추출하여 FileDTO에 담고 다시 List에 담아놓는다
-		for (MultipartFile file : m_file.getFiles("m_file")) {
+		for (MultipartFile file : fileList) {
 			
 			String fileOrName = file.getOriginalFilename();
 			String fileUUName = fService.fileUp(file);
 
-			FileDTO fDTO = FileDTO.builder().file_gseq(g_seq).file_original(fileOrName).file_upname(fileUUName).build();
+			FileDTO fDTO = FileDTO.builder().file_gseq(g_seq)// 갤러리 데이터의 PK 값
+					.file_original(fileOrName).file_upname(fileUUName).build();
 			files.add(fDTO);
+			
 		}
 		log.debug("이미지들 {}", files.toString());
 	}
