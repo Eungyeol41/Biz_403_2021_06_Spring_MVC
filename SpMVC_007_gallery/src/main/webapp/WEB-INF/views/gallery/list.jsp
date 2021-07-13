@@ -62,16 +62,21 @@
 </style>
 
 <div class="total">
-	<c:forEach items="${GALLERYS}" var="G">
+	<c:forEach items="${GALLERYS}" var="GALLERY">
 		<div class="g_box">
 			<div class="img_box">
-				<img src="${rootPath}/files/${G.g_image}" >
+				<c:if test="${empty GALLERY.g_image}">
+					<img src="${rootPath}/files/noImage.png" width="100px" >
+				</c:if>
+				<c:if test="${not empty GALLERY.g_image}">
+					<img src="${rootPath}/files/${GALLERY.g_image}" width="100px">
+				</c:if>
 			</div>
 			<div>
 				<h3>
-					<a id="detail" href="${rootPath}/gallery/detail/${G.g_seq}">${G.g_subject}</a>
+					<a id="detail" href="${rootPath}/gallery/detail2/${GALLERY.g_seq}">${GALLERY.g_subject}</a>
 				</h3>
-				<p>${G.g_content}</p>
+				<p>${GALLERY.g_content}</p>
 			</div>
 		</div>	
 	</c:forEach>

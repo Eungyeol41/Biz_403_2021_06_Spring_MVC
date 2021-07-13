@@ -41,17 +41,22 @@
 
 <div id="gallery_info">
 	<fieldset>
-		<legend> 제목 : ${GFLIST[0].g_subject} </legend>
-		<legend id="seq">SEQ : ${GFLIST[0].g_seq}</legend>
-		<p>작성일 : ${GFLIST[0].g_date}</p>
-		<p>작성시각 : ${GFLIST[0].g_time}</p>
-		<p>작성자 : ${GFLIST[0].g_writer}</p>
-		<p>작성 내용 : ${GFLIST[0].g_content}</p>
+		<legend> 제목 : ${GALLERY.g_subject} </legend>
+		<legend id="seq">SEQ : ${GALLERY.g_seq}</legend>
+		<p>작성일 : ${GALLERY.g_date}</p>
+		<p>작성시각 : ${GALLERY.g_time}</p>
+		<p>작성자 : ${GALLERY.g_writer}</p>
+		<p>작성 내용 : ${GALLERY.g_content}</p>
 	</fieldset>
 </div>
 <div id="gallery_files">
-	<c:forEach items="${GFLIST}" var="GF">
-		<img src="${rootPath}/files/${GF.f_upname}" height="100px">
+	<c:forEach items="${GALLERY.fileList}" var="FILE">
+		<c:if test="${empty FILE.file_upname}">
+			<img src="${rootPath}/files/noImage.png" width="100px" >
+		</c:if>
+		<c:if test="${not empty FILE.file_upname}">
+			<img src="${rootPath}/files/${FILE.file_upname}" height="100px">
+		</c:if>
 	</c:forEach>
 </div>
 <div>
@@ -67,14 +72,14 @@
 	let btn_delete = document.querySelector("button.gallery.delete")
 	
 	btn_update.addEventListener("click", ()=> {
-		alert("일련번호가 ${GFLIST[0].g_seq}인 게시물 수정")
-		location.href = "${rootPath}/gallery/update?g_seq=${GFLIST[0].g_seq}"
+		alert("일련번호가 ${GALLERY.g_seq}인 게시물 수정")
+		location.href = "${rootPath}/gallery/update?g_seq=${GALLERY.g_seq}"
 	})
 	
 	btn_delete.addEventListener("click", ()=> {
-		if(confirm("일련번호가 ${GFLIST[0].g_seq}인 게시물 삭제??")) {
+		if(confirm("일련번호가 ${GALLERY.g_seq}인 게시물 삭제??")) {
 			// .replace -- 뒤로가기 안 됨..
-			location.replace("${rootPath}/gallery/delete?g_seq=${GFLIST[0].g_seq}")
+			location.replace("${rootPath}/gallery/delete?g_seq=${GALLERY.g_seq}")
 		}
 	})
 </script>

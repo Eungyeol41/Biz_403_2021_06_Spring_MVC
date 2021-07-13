@@ -4,6 +4,12 @@
 <c:set var="rootPath" value="${pageContext.request.contextPath}" />    
 
 <style>
+	* {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+	
 	div {
 		margin: 5px;
 	}

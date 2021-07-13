@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.callor.gallery.model.FileDTO;
 import com.callor.gallery.model.GalleryDTO;
+import com.callor.gallery.model.GalleryFilesDTO;
 import com.callor.gallery.persistance.ext.FileDao;
 import com.callor.gallery.persistance.ext.GalleryDao;
 import com.callor.gallery.service.FileService;
@@ -63,7 +64,7 @@ public class GalleryServiceImplV1 implements GalleryService {
 		String strUUID = fService.fileUp(one_file);
 		gDTO.setG_image(strUUID);
 
-		log.debug(" INSERT 전 seq {} ", gDTO.getG_seq());
+		log.debug("INSERT 전 seq {} ", gDTO.getG_seq());
 		// GalleryDTO에 담긴 데이터를 tbl_gallery table에 INSERT
 		// mapper에서 INSERT를 수행한 후 새로 생성된 g_seq 값을 selectKey하여 gDTO의 g_seq 변수에 담아놓은 상태
 		gDao.insert(gDTO);
@@ -89,6 +90,8 @@ public class GalleryServiceImplV1 implements GalleryService {
 			
 		}
 		log.debug("이미지들 {}", files.toString());
+		
+		fDao.insertWithList(files);
 	}
 
 	@Override
@@ -101,4 +104,32 @@ public class GalleryServiceImplV1 implements GalleryService {
 		return gList;
 	}
 
+	@Override
+	public List<GalleryFilesDTO> findByIdGalleryFiles(Long g_seq) {
+		
+		List<GalleryFilesDTO> gfList = gDao.findByIdGalleryFiles(g_seq);
+		/*
+		 * Dao로부터 select를 한 후 데이터 검증을 하기 위해서 사용하는 코드
+		 * gfList가 데이터가 조회되지 않아 null이 발생할 수 있다.
+		 */
+		if(gfList != null && gfList.size() > 0) {
+			log.debug("GFLIST : {}", gfList.toString());
+		} else {
+			log.debug(" * 조회된 데이터가 없음 * ");
+		}
+		
+		return gfList;
+	}
+
+	@Override
+	public GalleryDTO findByIdGallery(Long g_seq) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int delete(Long g_seq) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

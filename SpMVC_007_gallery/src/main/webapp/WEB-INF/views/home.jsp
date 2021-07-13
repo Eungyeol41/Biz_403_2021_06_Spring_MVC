@@ -7,6 +7,12 @@
 <meta charset="UTF-8">
 <title>My Gallery</title>
 <style>
+	* {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+	
 	body {
 		background: linear-gradient(#e0eafc, #cfdef3)
 	}
@@ -16,36 +22,54 @@
 	    color: cadetblue;
 	    padding: 5px;
 	    margin: 10px auto;
+	   	text-shadow: 3px 3px 3px white;
 	}
 	
 	h1:hover {
 		cursor: progress;
 	}
+	
 </style>
 </head>
 <body>
-	<h1 id="mg">My Gallery</h1>
-
+	<header>
+		<h1 id="mg">My Gallery</h1>
+	</header>
+	
+	<%@ include file="/WEB-INF/views/include/nav.jspf" %>
+	
 	<c:choose>
 		<c:when test="${BODY eq 'G-INPUT'}">
 			<%@ include file="/WEB-INF/views/gallery/input.jsp"%>
 		</c:when>
+		
 		<c:when test="${BODY eq 'G-LIST'}">
 			<%@ include file="/WEB-INF/views/gallery/list.jsp" %>
 			<a href="${rootPath}/gallery/input">이미지등록</a>
 		</c:when>
+		
 		<c:when test="${BODY eq 'G-DETAIL'}">
 			<%@ include file="/WEB-INF/views/gallery/detail.jsp" %>
-			<a href="${rootPath}/gallery">리스트로</a>
 		</c:when>
+		
+		<c:when test="${BODY eq 'G-DETAILV2'}">
+			<%@ include file="/WEB-INF/views/gallery/detail2.jsp" %>
+		</c:when>
+		
+		<c:when test="${BODY eq 'JOIN'}">
+			<%@ include file="/WEB-INF/views/member/join.jsp" %>
+		</c:when>
+		
+		<c:when test="${BODY eq 'LOGIN'}">
+			<%@ include file="/WEB-INF/views/member/login.jsp" %>
+		</c:when>
+		
 		<c:otherwise>
 			<a href="${rootPath}/gallery/input">이미지등록</a>
 		</c:otherwise>
 	</c:choose>
 
-	<c:forEach
-		items="${FILES}"
-		var="FILE">
+	<c:forEach items="${FILES}" var="FILE">
 		<a href="${rootPath}/files/${FILE}" target="_NEW"></a>
 		<img src="${rootPath}/files/${FILE}" width="200px" height="200px">
 	</c:forEach>
@@ -56,4 +80,5 @@
 		location.href = "${rootPath}/"
 	})
 </script>
+
 </html>

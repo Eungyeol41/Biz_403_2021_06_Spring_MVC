@@ -25,6 +25,43 @@ public class HomeController {
 	@Qualifier("fileServiceV2")
 	protected final FileService fileService;
 
+	/*
+	 *  localhost:8080/rootPath/dumy/gallery/detail 요청을 했을 때 Request를 처리할 method
+	 *  a tag를 클릭했을 때 : <a href="${rootPath}/dumy/gallery/detail">
+	 *  
+	 *  주소창에 직접 입력하고 Enter를 눌렀을 때
+	 *  	http://localhost:8080/rootPath/dumy/gallery/detail
+	 *  location.href="${rootPath}/dumy/gallery/detail로 JSP에서 실행했을 때
+	 */
+	@RequestMapping(value = "/dumy/gallery/detail", method = RequestMethod.GET)
+	public String dumy() {
+		return "home";
+	}
+
+	/*
+	 * <form action="$[rootPath}/dumy/gallery/detail" method="POST">
+	 * 		<input name="str"></input>
+	 * 		<button type="submit">전송</button>
+	 * </form>
+	 * 
+	 * JSP, HTML에서 위 코드를 만들고 입력 화면을 보여준 후 
+	 * 	1. input box에 어떤 문자열을 입력한 후 
+	 *  2. 전송 button을 클릭하면
+	 * 	3. 이 method가 Request를 수신하고
+	 * 	4. input box에 입력한 문자열은 str 변수에 담기게 된다. 
+	 */
+	@RequestMapping(value = "/dumy/gallery/detail", method = RequestMethod.POST)
+	public String dumy(String str) {
+		return "home";
+	}
+
+	// localhost:8080/rootPath/dumy/gallery/detail/image 요청을 했을 때 request를 처리할 method
+	@RequestMapping(value = "/dumy/gallery/detail/image", method = RequestMethod.GET)
+	public String dumy1() {
+		return "home";
+	}
+
+	// localhost:8080/rootPath/로 요청
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		return "redirect:/gallery";
@@ -39,13 +76,13 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public String home(MultipartHttpServletRequest m_file, Model model) throws Exception {
 
-//		List<MultipartFile> files = m_file.getFiles("m_file");
-//		String fileName = fileService.fileUp(files.get(0));
-//		model.addAttribute("file", fileName);
-		
+		//		List<MultipartFile> files = m_file.getFiles("m_file");
+		//		String fileName = fileService.fileUp(files.get(0));
+		//		model.addAttribute("file", fileName);
+
 		List<String> fileNames = fileService.filesUp(m_file);
 		model.addAttribute("FILES", fileNames);
-		
+
 		return "home";
 	}
 
@@ -70,5 +107,4 @@ public class HomeController {
 
 		return "home";
 	}
-
 }
