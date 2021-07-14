@@ -20,7 +20,7 @@
 	div.g_box {
 		border: 1px solid cadetblue;
     	width: 30%;
-    	max-height:30vh;
+    	height:20vh;
 		margin: 2rem auto;
 		display: flex;
 		align-items: center;
@@ -38,7 +38,7 @@
 	}
 	
 	img {
-		width: 100%;
+		width: 90%;
 	}
 	
 	div#text {
@@ -80,38 +80,13 @@
 			</div>
 			<div id="text">
 				<h3>
-					<a id="detail" href="${rootPath}/gallery/detail2/${GALLERY.g_seq}">${GALLERY.g_subject}</a>
+					<a id="detail" href="${rootPath}/gallery/detail2/${GALLERY.g_seq}">${GALLERY.g_subject}(${GALLERY.g_seq})</a>
 				</h3>
 				<p>${GALLERY.g_content}</p>
 			</div>
 		</div>	
 	</c:forEach>
-</div>	
-
-<script type="text/javascript">
-
-let gallery_files = document.querySelector("div#gallery_files")
-if(gaellery_files) {
-	gallery_files.addEventListener("click", (e)=> {
-		let tag = e.target
-	})
 	
-	if(tag.tagName === "DIV" && tag.tagName.includes("gallery_file")) {
-		let seq = tag.dataset.fseq
-		if(confirm(seq + "이미지 삭제")) {
-			fetch("${rootPath}/gallery/file/delete/" + seq)
-			.then(response=>response.text())
-			.then(result=> {
-				if(result === "OK") {
-					alert("삭제 성공")
-				} else if(result === "NONE") {
-					alert("Server가 알 수 없음")
-				} else {
-					alert("삭제 실패")
-				}
-			})
-		}
-	}
-}
-
-</script>
+	<%@ include file="/WEB-INF/views/include/page_nav.jspf" %>
+	
+</div>	

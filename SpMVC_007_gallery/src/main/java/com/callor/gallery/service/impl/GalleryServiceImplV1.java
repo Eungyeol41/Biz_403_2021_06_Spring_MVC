@@ -22,6 +22,11 @@ import com.callor.gallery.service.GalleryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+/*
+ * final로 선언된 Inject 변수의 초기화를 시키는 데 필요한 생성자를 자동으로 만들어주는 lombok의 기능이다
+ * 
+ * 클래스를 상속하면 @RequiredArgsConstructor는 상속받은 클래스(V2)에서는 사용 불가
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Service("gallerServiceV1")
@@ -131,5 +136,68 @@ public class GalleryServiceImplV1 implements GalleryService {
 	public int delete(Long g_seq) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public int file_delete(Long g_seq) {
+		// TODO Auto-generated method stub
+		
+		// 파일을 삭제하기 위하여 저장된 파일 정보를 SELECT하기
+		FileDTO fDTO = fDao.findById(g_seq);
+		
+		// 업로드되어 저장된 파일을 삭제
+		int ret = fService.delete(fDTO.getFile_upname());
+		if(ret > 0) {
+			// tbl_files에서 데이터 삭제
+			ret = fDao.delete(g_seq);
+		}
+		
+		return ret;
+	}
+
+	/*
+	 * pageNum을 매개변수로 받아서 selectAll 한 데이터를 잘라내고 pageNum에 해당하는 list 부분만 return하기
+	 * 
+	 * 한 페이지에 보여줄 list는 10개
+	 */
+	@Override
+	public List<GalleryDTO> selectAllPage(int pageNum) throws Exception {
+		// TODO Auto-generated method stub
+		
+		// 1. 전체 데이터 SELECT하기
+		List<GalleryDTO> gListAll = gDao.selectAll();
+		
+		// 2. if(pageNum == 1) => list에서 0번째 요소 ~ 9번째 요소까지 추출하기
+		//		if(pageNum == 2) => list에서 10번재 요소 ~ 19번째 요소까지 추출해야 함.
+		//		if(pageNum == 3) => list에서 20번재 요소 ~ 29번째 요소까지 추출해야 함.
+		
+		int totalCount = gListAll.size();
+		
+		int start = (pageNum -1) * 12;
+		int end = start + 12;
+		
+		if(pageNum * 12 > totalCount - 12) {
+			end = totalCount;
+			start = end - 10;
+		}
+		
+		List<GalleryDTO> pageList = new ArrayList<>();
+		for(int i = start; i < end; i++) {
+			pageList.add(gListAll.get(i));
+		}
+		
+		return pageList;
+	}
+
+	@Override
+	public List<GalleryDTO> findBySearchPage(int pageNum, String search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<GalleryDTO> findBySearchOderPage(int pageNum, String search, String column) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
