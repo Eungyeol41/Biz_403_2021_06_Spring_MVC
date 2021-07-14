@@ -23,6 +23,7 @@
     	max-height:30vh;
 		margin: 2rem auto;
 		display: flex;
+		align-items: center;
 	}
 		
 	div.g_box div:first-of-type {
@@ -40,9 +41,14 @@
 		width: 100%;
 	}
 	
+	div#text {
+		width: 80%;
+	}
 
 	h3 {
-		text-align: center;
+	    text-align: center;
+	    margin: 10px auto;
+	    padding: 5px;
 	}
 	
 	a#detail:hover {
@@ -72,7 +78,7 @@
 					<img src="${rootPath}/files/${GALLERY.g_image}" width="100px">
 				</c:if>
 			</div>
-			<div>
+			<div id="text">
 				<h3>
 					<a id="detail" href="${rootPath}/gallery/detail2/${GALLERY.g_seq}">${GALLERY.g_subject}</a>
 				</h3>
@@ -81,3 +87,31 @@
 		</div>	
 	</c:forEach>
 </div>	
+
+<script type="text/javascript">
+
+let gallery_files = document.querySelector("div#gallery_files")
+if(gaellery_files) {
+	gallery_files.addEventListener("click", (e)=> {
+		let tag = e.target
+	})
+	
+	if(tag.tagName === "DIV" && tag.tagName.includes("gallery_file")) {
+		let seq = tag.dataset.fseq
+		if(confirm(seq + "이미지 삭제")) {
+			fetch("${rootPath}/gallery/file/delete/" + seq)
+			.then(response=>response.text())
+			.then(result=> {
+				if(result === "OK") {
+					alert("삭제 성공")
+				} else if(result === "NONE") {
+					alert("Server가 알 수 없음")
+				} else {
+					alert("삭제 실패")
+				}
+			})
+		}
+	}
+}
+
+</script>

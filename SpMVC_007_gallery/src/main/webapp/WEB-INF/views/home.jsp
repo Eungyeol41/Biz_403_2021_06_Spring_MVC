@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>My Gallery</title>
+<script src="https://kit.fontawesome.com/bf824ab718.js" crossorigin="anonymous"></script>
 <style>
 	* {
 		box-sizing: border-box;

@@ -48,14 +48,20 @@
 
 	<update id="update"></update>
 
-	<delete id="delete"></delete>
+	<delete id="delete">
+		DELETE FROM tbl_files
+		WHERE file_seq = #{file_seq}
+	</delete>
 
 	<update id="create_table">
 		CREATE TABLE IF NOT EXISTS tbl_files(
 			file_seq BIGINT PRIMARY KEY AUTO_INCREMENT,
 			file_gseq BIGINT NOT NULL,
 			file_original VARCHAR(256) NOT NULL,
-			file_upname VARCHAR(256) NOT NULL
+			file_upname VARCHAR(256) NOT NULL,
+			CONSTRAINT FOREIGN KEY(file_gseq)
+			REFERENCES tbl_gallery(g_seq)
+			ON DELETE CASCADE
 		)
 	</update>
 </mapper> 

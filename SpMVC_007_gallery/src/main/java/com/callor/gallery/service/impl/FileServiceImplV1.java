@@ -88,10 +88,17 @@ public class FileServiceImplV1 implements FileService{
 		List<MultipartFile> fileList = files.getFiles(tagName);
 		for(MultipartFile file : fileList) {
 			String fileName = this.fileUp(file);
+			log.debug("파일이름 {}",fileName);
 			fileNames.add(fileName);
 		}
 		
 		return fileNames;
+	}
+
+	@Override
+	public int delete(String imgFileName) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
