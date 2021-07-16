@@ -62,10 +62,13 @@ public class GalleryController {
 	
 	// localhost:8080/rootPath/gallery/		또는	localhost:8080/rootPath/gallery로 요청
 	@RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
-	public String list(@RequestParam(value = "pageNum", required = false, defaultValue = "1") String pageNum, Model model) throws Exception {
+	public String list(@RequestParam(value = "pageNum", required = false, defaultValue = "1") String pageNum, 
+						@RequestParam(value = "search_column", required = false, defaultValue = "NONE") String search_column,
+						@RequestParam(value = "search_text", required = false, defaultValue = "NONE") String search_text, 
+						Model model) throws Exception {
 		
 		int intPageNum = Integer.valueOf(pageNum);
-		List<GalleryDTO> gList = gService.selectAllPage(intPageNum);
+		List<GalleryDTO> gList = gService.selectAllPage(intPageNum, model);
 	
 //		List<GalleryDTO> gList = gService.selectAll();
 		
@@ -73,8 +76,13 @@ public class GalleryController {
 			model.addAttribute("PAGE_NUM", intPageNum);
 		}
 		
-		model.addAttribute("GALLERYS", gList);
+		// tbl_gallery에서 전체 List를 가져와서 전체 List를 표시하기 위해서 몇 페이지의 nav가 필요한 지 검색 
 		
+//		model.addAttribute("GALLERYS", gList);
+		
+		// search_column, search_text를 사용한 조건 검색
+		gService.findBySearchPage(search_column, search_text, intPageNum, model);
+	
 		model.addAttribute("BODY", "G-LIST");
 		
 		return "home";

@@ -10,6 +10,7 @@ import com.callor.gallery.model.GalleryDTO;
 import com.callor.gallery.persistance.ext.FileDao;
 import com.callor.gallery.persistance.ext.GalleryDao;
 import com.callor.gallery.service.FileService;
+import com.callor.gallery.service.PageService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,8 +25,13 @@ public class GalleryServiceImplV2 extends GalleryServiceImplV1{
 	 *  만약 매개변수로 설정된 요소 중에 interface를 상속받은 클래스가 2개 이상일 경우 @Qualifier()를 설정해야 하는데..
 	 *  이 때 각 매개변수의 요소 type 앞에 작성해주면 된다.
 	 */
-	public GalleryServiceImplV2(GalleryDao gDao, FileDao fDao, @Qualifier("fileServiceV2") FileService fService) {
-		super(gDao, fDao, fService);
+//	public GalleryServiceImplV2(GalleryDao gDao, FileDao fDao, FileService fService) {
+//		super(gDao, fDao, fService);
+//	}
+
+	public GalleryServiceImplV2(GalleryDao gDao, FileDao fDao, @Qualifier("fileServiceV2")FileService fService, PageService pService) {
+		super(gDao, fDao, fService, pService);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override

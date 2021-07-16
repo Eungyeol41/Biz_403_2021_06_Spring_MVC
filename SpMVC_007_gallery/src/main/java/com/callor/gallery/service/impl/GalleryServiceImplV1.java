@@ -8,16 +8,19 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.callor.gallery.model.FileDTO;
 import com.callor.gallery.model.GalleryDTO;
 import com.callor.gallery.model.GalleryFilesDTO;
+import com.callor.gallery.model.PageDTO;
 import com.callor.gallery.persistance.ext.FileDao;
 import com.callor.gallery.persistance.ext.GalleryDao;
 import com.callor.gallery.service.FileService;
 import com.callor.gallery.service.GalleryService;
+import com.callor.gallery.service.PageService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +40,8 @@ public class GalleryServiceImplV1 implements GalleryService {
 
 	@Qualifier("fileServiceV2")
 	protected final FileService fService;
+	
+	protected final PageService pService;
 
 	/*
 	 * @Autowired가 설정된 변수, method, 객체 등을 만나면 
@@ -188,6 +193,39 @@ public class GalleryServiceImplV1 implements GalleryService {
 		
 		return pageList;
 	}
+	
+	@Override
+	public List<GalleryDTO> selectAllPage(int intPageNum, Model model) throws Exception {
+		// TODO Auto-generated method stub
+		
+//		List<GalleryDTO> pageList = this.selectAllPage(intPageNum);
+//		int galleryTotal = gDao.countAll();
+//		int totalPages = galleryTotal / 12;
+//		// 현재 선택된 page가 14라면 page / 2를 하여 선택된 page 번호에서 값을 밸셈하여 시작 값으로 설정
+//		int startPage = (intPageNum - ( 10 / 2 ));
+//		int endPage = startPage + 10;
+//		PageDTO pageDTO = PageDTO.builder().startPage(startPage).endPage(endPage).totalPages(totalPages).build();
+//		model.addAttribute("PAGE_NAV", pageDTO);
+//		model.addAttribute("TOTAL_PAGE", totalPages);
+//		model.addAttribute("START_PAGE", startPage);
+//		model.addAttribute("END_PAGE", endPage);
+		
+		
+		List<GalleryDTO> galleryAll = gDao.selectAll();
+		int totalListSize = galleryAll.size();
+		
+		PageDTO pageDTO = pService.makePagination(totalListSize, intPageNum);
+		
+		List<GalleryDTO> pageList = new ArrayList<>();
+		for(int i = pageDTO.getOffset(); i < pageDTO.getLimit(); i++) {
+			pageList.add(galleryAll.get(i));
+		}
+		
+		model.addAttribute("PAGE_NAV", pageDTO);
+		model.addAttribute("GALLERYS", pageList);
+		
+		return null;
+	}
 
 	@Override
 	public List<GalleryDTO> findBySearchPage(int pageNum, String search) {
@@ -200,4 +238,31 @@ public class GalleryServiceImplV1 implements GalleryService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void findBySearchPage(String search_column, String search_text, int pageNum, Model model) {
+		// TODO Auto-generated method stub
+		
+		List<GalleryDTO> gList = gDao.findBySearch(search_column, search_text);
+		
+		int totalListSize = gList.size();
+		PageDTO pageDTO = pService.makePagination(totalListSize, pageNum);
+		
+		List<GalleryDTO> pList = new ArrayList<>();
+		
+		if(pageDTO == null) {
+//			model.addAttribute("GALLERYS", gList);
+			// 검색 결과 없으면 전체 리스트 나오게 하는거
+			model.addAttribute("GALLERYS", gDao.selectAll());
+			return;
+		}
+		
+		for(int i = pageDTO.getOffset(); i < pageDTO.getLimit(); i++) {
+			pList.add(gList.get(i));
+		}
+		
+		model.addAttribute("GALLERYS", pList);
+	}
+
+	
 }

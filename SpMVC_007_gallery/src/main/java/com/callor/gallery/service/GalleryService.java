@@ -2,6 +2,7 @@ package com.callor.gallery.service;
 
 import java.util.List;
 
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -22,6 +23,7 @@ public interface GalleryService {
 	 *  pageNum값을 매개변수로 받아서 일정한 분량으로 잘라서 list return
 	 */
 	public List<GalleryDTO> selectAllPage(int pageNum) throws Exception;
+	public List<GalleryDTO> selectAllPage(int intPageNum, Model model) throws Exception;
 	
 	// 검색 조건과 pageNum값을 매개변수로 받아서 조건 검색을 수행한 후 일정 분량으로 잘라서 list를 return
 	public List<GalleryDTO> findBySearchPage(int pageNum, String search);
@@ -35,4 +37,7 @@ public interface GalleryService {
 	public int delete(Long g_seq);
 
 	public int file_delete(Long g_seq);
+
+	public void findBySearchPage(String search_column, String search_text, int pageNum, Model model);
+
 }
